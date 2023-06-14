@@ -1,0 +1,513 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["notification-bell-wc"],{"0jsl":function(t,e,i){"use strict";i.r(e),i.d(e,"ToolingInfo",(function(){return vt})),i.d(e,"NotificationBellWC",(function(){return Z})),i.d(e,"NotificationBellWCTemplate",(function(){return Ct})),i.d(e,"NotificationBellWCStyles",(function(){return bt})),i.d(e,"NotificationBellWCTelemetryConstants",(function(){return m})),i.d(e,"BingTelemetryActionType",(function(){return H})),i.d(e,"BingTelemetry",(function(){return b})),i.d(e,"NotificationBellWCTelemetry",(function(){return v}));var n=i("A03o"),o=i("akWC"),a=i("C49W"),r=i("sydv"),s=i("eAka"),c=i("Zn5T");const l=Object(n.a)(c.a.notificationBellWC,"Notification Component experience",Object.assign(Object.assign({},Object(o.a)({title:"Localization for the title text",settings:"Localization for the settings text",disableToastText:"You will no longer receive these notifications",undoBtn:"Undo",undoText:"You will receive these notifications again",cardAction:"Localization for card action",nullCardTitle:"Great! You’re all caught up",nullCardActionText:"Follow interests",nullCardSubtitle:" to get new notifications.",JustNow:"1m",NumberDayAgo:"{0}d",NumberDaysAgo:"{0}d",NumberHourAgo:"{0}h",NumberHoursAgo:"{0}h",NumberMinuteAgo:"{0}m",NumberMinutesAgo:"{0}m"})),Object(a.f)("moreSettings","MoreSettings","",Object.assign(Object.assign(Object.assign({},Object(r.c)("pivotId","PivotId","")),Object(s.a)("configIndexRef","configIndexRef","configIndexRef","Pivot switcher configuration for jumping to setting page")),Object(a.f)("context","Context","",Object.assign({},Object(a.c)("scrollToNotification","ScrollToNotification","Should scroll to notification when jumping to setting-page")))))));var d=i("D57K"),u=i("u5KZ"),C=i("Am8i"),h=i("rvYQ"),g=i("hOj1"),f=i("I6Lx"),p=i("HxRh");const m={headline:"Notification Bell",name:"NotificationBell",cardActionEllipsis:"CardActionEllipsis",destination:"destination",settingPage:"Settings",seen:"seen",unseen:"unseen"};var H;!function(t){t[t.Undefined=-1]="Undefined",t[t.Send=0]="Send",t[t.Show=1]="Show",t[t.Click=2]="Click",t[t.OpenSettings=3]="OpenSettings",t[t.BingInterestAdd=4]="BingInterestAdd",t[t.BingInterestDelete=5]="BingInterestDelete",t[t.BingInferenceConfirm=6]="BingInferenceConfirm",t[t.BingInferenceDeny=7]="BingInferenceDeny",t[t.Dismiss=8]="Dismiss"}(H||(H={}));class b{constructor(){this.bingTelemetryURL="https://www.bing.com/pnp/inst"}getBingTelemetryHeaders(){const t={"X-PERSONALBING-CSRF":"1"},e=Object(h.b)().CurrentMarket;e&&(t["X-Search-UILang"]=e);const i=Object(g.a)("at-bing");i&&(t["X-Search-RPSToken"]=i);const n=Object(g.b)();return n&&(t["X-Search-ClientID"]=n),f.b.CurrentFlights&&(t["X-PERSONALBING-FLIGHTS"]=f.b.CurrentFlights),t}fireBingTelemetry(t,e){return Object(d.a)(this,void 0,void 0,(function*(){try{const i=Object.assign(Object.assign({c:"anaheim_nc",a:t},JSON.parse(e)),{ts:(new Date).getTime()}),n=yield fetch(this.bingTelemetryURL,{credentials:"same-origin",headers:this.getBingTelemetryHeaders(),method:"POST",body:JSON.stringify(i)});n.ok||console.error(n.statusText)}catch(t){return void u.a.sendAppErrorEvent(p.if.JsonParseError)}}))}}class v{constructor(t){this.telemetryObject=t,this.notificationContainerViewObject=this.telemetryObject.addOrUpdateChild({name:m.name})}bellContentView(t){return this.notificationContainerViewObject.addOrUpdateChild({name:`${m.name}${t||""}`})}bellClick(){return this.notificationContainerViewObject.addOrUpdateChild({name:m.name,action:C.a.Click,destinationUrl:"",content:{headline:m.headline}})}notificationItemContentView(t){return this.notificationContainerViewObject.addOrUpdateChild({name:t.type,type:C.e.Headline})}notificationItemClick(t){return this.notificationItemContentView(t).addOrUpdateChild({name:t.type,action:C.a.Click,type:C.e.Headline})}notificationActionMenuIconClick(t){return this.notificationItemContentView(t).addOrUpdateChild({name:m.cardActionEllipsis,action:C.a.Click,behavior:C.b.More,type:C.e.Headline,content:{headline:m.cardActionEllipsis}})}notificationActionClick(t,e){return this.notificationActionMenuIconClick(t).addOrUpdateChild({name:e.displayText,action:C.a.Click,behavior:C.b.TurnOff,type:C.e.Headline,content:{headline:e.displayText}})}notificationSettingPage(){return this.notificationContainerViewObject.addOrUpdateChild({name:m.settingPage,action:C.a.Click,behavior:C.b.Navigate,type:C.e.ActionButton,content:{headline:m.settingPage}})}}var w=i("s9+9"),y=i("dTwT"),x=i("iCAe"),L=i("HFNa"),O=i("Qo3E"),S=i("8ntK"),M=i("QHbP"),T=i("wZHk"),k=i("plCa"),D=i("3KaK");const N=new L.b;function _(t){return Object(d.a)(this,void 0,void 0,(function*(){try{const[e]=JSON.parse(t),i=JSON.parse(e.ParametersJson);yield N.updateNotificationSetting({[i.FeatureName]:i.NewIsConsumptionAllowed})}catch(e){console.error(e,"Notification action payload is unavaliable, the paylod is: ",t)}}))}var j=i("Z3LZ"),A=i("IqCT"),B=i("w0HK"),I=i("Gy7L"),P=i("oePG"),$=i("d0Z1"),F=i("RX41");class Z extends A.a{constructor(){super(...arguments),this.currMenuId=-1,this.count=0,this.notifications=[],this.isOpen=!1,this.isLoading=!1,this.notificationCacheTime=1,this.cachedData={notificationLastRequestTimestamp:{count:0,notifications:0},notificationBellCacheData:{count:0,notifications:[]}}}experienceConnected(){Object(k.a)().subscribe(()=>this.handleClose()),this.handleClick=this.handleClick.bind(this),this.handleKeyDown=this.handleKeyDown.bind(this),this.handleScroll=this.handleScroll.bind(this),Promise.all([Object(j.j)(),Object(j.h)()]).then(()=>{this.populateUnreadCount()}),this.notificationBellWCTelemetry=new v(this.telemetryObject),this.bingTelemetry=new b,Object($.c)(w.a.ChromiumPageSettings,t=>{this.isOnImage=t.imageOfTheDayEnabled||Object(D.e)()}),this.config.cacheTimeInHour&&(this.notificationCacheTime=36e5*this.config.cacheTimeInHour),this.loadCachedDataFromLocalStorage()}shadowDomPopulated(){Object(M.b)(T.a.notificationBell,this.shadowRoot.getElementById("notificationBell"))}getExperienceType(){return c.a.notificationBellWC}loadCachedDataFromLocalStorage(){if(!Object(y.a)().supported)return;const t=Object(y.a)().getObject("NOTIFICATION_CACHE_LS_KEY",{notificationLastRequestTimestamp:{count:0,notifications:0},notificationBellCacheData:{count:0,notifications:[]}});this.cachedData=t}canUseCachedData(t){return this.cachedData.notificationLastRequestTimestamp[t]&&(new Date).getTime()-this.cachedData.notificationLastRequestTimestamp[t]<this.notificationCacheTime}saveCahedDataInLS(){Object(y.a)().setObject("NOTIFICATION_CACHE_LS_KEY",this.cachedData)}populateUnreadCount(){return Object(d.a)(this,void 0,void 0,(function*(){if(this.canUseCachedData("count"))return void(this.count=this.cachedData.notificationBellCacheData.count);const t=yield N.getNotificationCount();this.count=t.c,this.cachedData.notificationBellCacheData.count=t.c,this.cachedData.notificationLastRequestTimestamp.count=(new Date).getTime(),this.saveCahedDataInLS()}))}populateNotificationFromService(){return Object(d.a)(this,void 0,void 0,(function*(){const t=this.count;let e;if(this.isLoading=!0,e=this.canUseCachedData("notifications")&&this.cachedData.notificationBellCacheData.notifications.length?{notifications:this.cachedData.notificationBellCacheData.notifications}:yield N.getNotificationList(),this.isLoading=!1,null==e?void 0:e.notifications){this.notifications=e.notifications||[];this.notifications.reduce((t,e)=>t+e.state===L.d.New?1:0,0)!==t&&u.a.sendAppErrorEvent(p.if.WCCountInconsistent),this.cachedData.notificationLastRequestTimestamp.notifications=(new Date).getTime(),this.cachedData.notificationBellCacheData.notifications=this.notifications.map(t=>Object.assign(Object.assign({},t),{state:L.d.Seen})),this.cachedData.notificationBellCacheData.count=0,this.saveCahedDataInLS()}}))}handleOpen(){this.populateNotificationFromService(),this.count=0,this.isOpen=!0,document.addEventListener("mousedown",this.handleClick,!1),document.addEventListener("keydown",this.handleKeyDown,!1),document.addEventListener("scroll",this.handleScroll,!1),Object(x.c)(x.a.notificationBell,!0)}handleClose(){this.currMenuId=-1,this.notifications=[],this.isOpen=!1,document.removeEventListener("mousedown",this.handleClick,!1),document.removeEventListener("keydown",this.handleKeyDown,!1),document.removeEventListener("scroll",this.handleScroll,!1),Object(x.c)(x.a.notificationBell,!1)}handleScroll(){this.handleClose()}handleClick(t){(function(t){if(!t)return!1;return t.composedPath().some(t=>"NOTIFICATION-BELL"===t.tagName)})(t)||this.handleClose()}handleKeyDown(t){this.isOpen&&t.keyCode===I.m&&this.handleClose()}toggleCardActionMenu(t){this.currMenuId!==t?this.currMenuId=t:this.currMenuId=-1}handleClickActions(t){return Object(d.a)(this,void 0,void 0,(function*(){this.currMenuId=-1;const{payload:e,successDisplayText:i}=t.actionData,[n,o,a]=/(.*){{(.*)}}/g.exec(i);yield _(e),F.b&&Object(F.b)(),O.a.renderToast({id:"7",toastType:S.a.DisableNotification,inputText:o||this.strings.disableToastText,buttonText:a||this.strings.undoBtn,expirationInMs:3e3,onClick:()=>Object(d.a)(this,void 0,void 0,(function*(){try{const t=JSON.parse(e),i=JSON.parse(t[0].ParametersJson),n=JSON.stringify([{Partner:"Platform",Name:"SetIsConsumptionAllowedAllUp",ParametersJson:JSON.stringify({InterestConsumingService:i.InterestConsumingService,FeatureName:i.FeatureName,NewIsConsumptionAllowed:!0})}]);yield _(n),F.b&&Object(F.b)(),O.a.renderToast({id:"7",toastType:S.a.DisableNotification,inputText:this.strings.undoText,expirationInMs:3e3})}catch(t){u.a.sendAppErrorEvent(p.if.WCJsonParseError)}}))})}))}switchToSettingPage(t){const{moreSettings:e,pivotsNavInstanceId:i,pivotsSingleColumnNavInstanceId:n}=this.config;e&&(Object(B.a)(this.isSingleColumn?n:i).switchPivot(Object.assign(Object.assign({},e),t?{context:null}:null)),this.handleClose())}}Object(d.d)([P.d],Z.prototype,"notificationBellWCTelemetry",void 0),Object(d.d)([P.d],Z.prototype,"isSingleColumn",void 0),Object(d.d)([P.d],Z.prototype,"currMenuId",void 0),Object(d.d)([P.d],Z.prototype,"count",void 0),Object(d.d)([P.d],Z.prototype,"notifications",void 0),Object(d.d)([P.d],Z.prototype,"isOpen",void 0),Object(d.d)([P.d],Z.prototype,"isLoading",void 0),Object(d.d)([P.d],Z.prototype,"isOnImage",void 0);var V=i("6BDD"),E=i("6vBc"),U=i("UNqU");const W=V.b`
+<svg viewBox="0 0 16 16" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" fill="${t=>t.isOnImage?"white":"var(--neutral-foreground-rest)"}" stroke="none" stroke-width="0.5">
+<path d="M8.00001 2C5.51473 2 3.50001 4.01472 3.50001 6.5V8.9014L2.5357 11.3145C2.47415 11.4685 2.49299 11.643 2.58601 11.7804C2.67904 11.9177 2.83412 12 3 12H6C6 13.1084 6.89164 14 8 14C9.10836 14 10 13.1084 10 12H13C13.1659 12 13.321 11.9177 13.414 11.7804C13.507 11.643 13.5259 11.4685 13.4643 11.3145L12.5 8.9014V6.5C12.5 4.01472 10.4853 2 8.00001 2ZM9 12C9 12.5561 8.55607 13 8 13C7.44393 13 7 12.5561 7 12H9ZM4.50001 6.5C4.50001 4.567 6.06701 3 8.00001 3C9.933 3 11.5 4.567 11.5 6.5V8.9976C11.5 9.06116 11.5121 9.12413 11.5357 9.18315L12.2617 11H3.73826L4.46431 9.18315C4.48789 9.12413 4.50001 9.06116 4.50001 8.9976V6.5Z"></path>
+</svg>
+`;var z=i("eUhr"),J=i("vjdx");const Y=V.b`
+<svg width="10" height="10" viewBox="0 0 10 3" fill="var(--neutral-foreground-hint)" xmlns="http://www.w3.org/2000/svg">
+<path d="M2 1.01999C2 1.57227 1.55228 2.01999 1 2.01999C0.447715 2.01999 0 1.57227 0 1.01999C0 0.467703 0.447715 0.0199876 1 0.0199876C1.55228 0.0199876 2 0.467703 2 1.01999Z" />
+<path d="M6 1C6 1.55228 5.55229 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0C5.55229 0 6 0.447715 6 1Z" />
+<path d="M9 2.02002C9.55229 2.02002 10 1.5723 10 1.02002C10 0.467735 9.55229 0.0200196 9 0.0200196C8.44771 0.0200196 8 0.467735 8 1.02002C8 1.5723 8.44771 2.02002 9 2.02002Z" />
+</svg>
+`,R=V.b`
+<svg width="14" height="13" viewBox="0 0 13 12" fill="var(--neutral-foreground-rest)" xmlns="http://www.w3.org/2000/svg" slot="start">
+    <path d="M4.62793 0.75H5.25V11.25H4.62793L2.00293 8.625H0V3.375H2.00293L4.62793 0.75ZM4.375 2.24707L2.37207 4.25H0.875V7.75H2.37207L4.375 9.75293V2.24707ZM10.2471 6L12.1201 7.87988L11.5049 8.49512L9.625 6.62207L7.74512 8.49512L7.12988 7.87988L9.00293 6L7.12988 4.12012L7.74512 3.50488L9.625 5.37793L11.5049 3.50488L12.1201 4.12012L10.2471 6Z" />
+</svg>
+`,K=V.b`
+<svg width="11.5" height="14" viewBox="0 0 18 22" fill="var(--neutral-foreground-rest)" xmlns="http://www.w3.org/2000/svg" slot="start">
+    <path d="M15.9405 15.5226L15.715 15.6303L15.9405 15.5225C15.144 13.8552 14.9697 11.4789 14.9697 9.75098C14.9697 9.74153 14.9695 9.73243 14.9692 9.72365C14.9586 7.39107 13.5797 5.37543 11.592 4.42203V3.22797C11.592 1.85919 10.4691 0.75 9.09318 0.75H8.90681C7.53093 0.75 6.40798 1.85919 6.40798 3.22797V4.42195C4.41243 5.37902 3.0303 7.40676 3.0303 9.75098C3.0303 11.4789 2.856 13.8551 2.05945 15.5226L2.28503 15.6303L2.05945 15.5226C1.66374 16.351 1.27818 16.6479 1.20637 16.6982C0.856697 16.8693 0.690247 17.2471 0.769544 17.6165C0.855165 18.0154 1.22391 18.272 1.60803 18.272H5.71315C5.86393 19.9408 7.28169 21.25 9.00002 21.25C10.7183 21.25 12.1361 19.9408 12.2869 18.272H16.392C16.7761 18.272 17.1449 18.0154 17.2305 17.6165L17.2305 17.6164C17.3097 17.2472 17.1433 16.8693 16.7936 16.6982C16.7219 16.648 16.3363 16.351 15.9405 15.5226ZM8.09286 3.22797V3.22005C8.09718 2.7826 8.45871 2.42379 8.90685 2.42379H9.09322C9.54406 2.42379 9.90725 2.78694 9.90725 3.22797V3.90293C9.6112 3.85795 9.30818 3.83461 8.99986 3.83461C8.69167 3.83461 8.38877 3.85793 8.09286 3.90284V3.22797ZM3.39819 16.5981C3.42919 16.5417 3.46015 16.4834 3.49103 16.4232L3.49104 16.4232C4.3109 14.8242 4.71515 12.5722 4.71515 9.75098C4.71515 7.41402 6.63528 5.5084 8.99982 5.5084C11.3643 5.5084 13.2845 7.41394 13.2845 9.75293C13.2845 9.76126 13.2846 9.76995 13.2849 9.77896C13.2876 12.587 13.6918 14.8294 14.509 16.4232C14.5399 16.4834 14.5708 16.5417 14.6018 16.5981H11.3854H11.3853H11.385H11.3846H11.3839H11.383H11.382H11.3807H11.3793H11.3777H11.3759H11.3739H11.3717H11.3694H11.3668H11.3641H11.3612H11.3582H11.3549H11.3514H11.3478H11.344H11.3401H11.3359H11.3316H11.3271H11.3224H11.3176H11.3125H11.3074H11.302H11.2965H11.2908H11.2849H11.2788H11.2726H11.2663H11.2597H11.253H11.2462H11.2391H11.2319H11.2246H11.2171H11.2094H11.2015H11.1935H11.1854H11.1771H11.1686H11.16H11.1512H11.1423H11.1332H11.1239H11.1145H11.105H11.0953H11.0855H11.0755H11.0653H11.055H11.0446H11.034H11.0233H11.0124H11.0014H10.9902H10.9789H10.9675H10.9559H10.9442H10.9323H10.9203H10.9081H10.8959H10.8834H10.8709H10.8582H10.8454H10.8324H10.8194H10.8061H10.7928H10.7793H10.7657H10.752H10.7381H10.7241H10.71H10.6957H10.6814H10.6669H10.6522H10.6375H10.6226H10.6077H10.5926H10.5773H10.562H10.5465H10.5309H10.5152H10.4994H10.4835H10.4675H10.4513H10.435H10.4187H10.4022H10.3856H10.3688H10.352H10.3351H10.318H10.3009H10.2836H10.2663H10.2488H10.2313H10.2136H10.1958H10.1779H10.16H10.1419H10.1237H10.1054H10.0871H10.0686H10.05H10.0314H10.0126H9.99377H9.97483H9.95579H9.93666H9.91744H9.89813H9.87873H9.85925H9.83967H9.82H9.80025H9.78042H9.7605H9.74049H9.7204H9.70023H9.67997H9.65964H9.63922H9.61873H9.59815H9.5775H9.55677H9.53596H9.51507H9.49411H9.47308H9.45197H9.43079H9.40954H9.38821H9.36682H9.34535H9.32381H9.30221H9.28054H9.2588H9.237H9.21513H9.19319H9.17119H9.14913H9.127H9.10482H9.08257H9.06026H9.03789H9.01546H8.99298H8.97044H8.94784H8.92519H8.90248H8.87971H8.8569H8.83403H8.81111H8.78813H8.76511H8.74204H8.71891H8.69574H8.67253H8.64926H8.62595H8.6026H8.5792H8.55575H8.53227H8.50874H8.48517H8.46156H8.4379H8.41421H8.39049H8.36672H8.34292H8.31908H8.2952H8.27129H8.24735H8.22337H8.19937H8.17532H8.15125H8.12715H8.10302H8.07886H8.05467H8.03046H8.00622H7.98195H7.95766H7.93335H7.90901H7.88465H7.86026H7.83586H7.81143H7.78699H7.76253H7.73805H7.71355H7.68903H7.6645H7.63996H7.6154H7.59082H7.56624H7.54164H7.51703H7.49241H7.46778H7.44314H7.41849H7.39383H7.36917H7.3445H7.31983H7.29515H7.27047H7.24579H7.2211H7.19641H7.17172H7.14703H7.12234H7.09766H7.07297H7.04829H7.02361H6.99894H6.97427H6.94961H6.92496H6.90031H6.87567H6.85104H6.82642H6.80181H6.77721H6.75262H6.72805H6.70349H6.67894H6.65441H6.6299H6.6054H6.58092H6.55646H6.53201H6.50759H6.48318H6.4588H6.43444H6.4101H6.38578H6.36149H6.33723H6.31299H6.28877H6.26458H6.24042H6.21629H6.19219H6.16812H6.14408H6.12007H6.0961H6.07215H6.04824H6.02437H6.00053H5.97673H5.95296H5.92923H5.90554H5.88189H5.85828H5.83471H5.81118H5.7877H5.76425H5.74085H5.7175H5.69419H5.67092H5.64771H5.62454H5.60141H5.57834H5.55532H5.53235H5.50942H5.48655H5.46374H5.44097H5.41827H5.39561H5.37301H5.35047H5.32799H5.30556H5.28319H5.26089H5.23864H5.21645H5.19433H5.17226H5.15026H5.12833H5.10646H5.08465H5.06292H5.04124H5.01964H4.99811H4.97664H4.95524H4.93392H4.91267H4.89149H4.87038H4.84934H4.82838H4.8075H4.78669H4.76596H4.74531H4.72473H4.70424H4.68382H4.66349H4.64323H4.62306H4.60297H4.58296H4.56304H4.54321H4.52346H4.50379H4.48422H4.46473H4.44533H4.42602H4.4068H4.38768H4.36864H4.3497H4.33085H4.31209H4.29343H4.27487H4.2564H4.23803H4.21975H4.20158H4.1835H4.16553H4.14765H4.12988H4.11221H4.09465H4.07718H4.05982H4.04257H4.02543H4.00839H3.99146H3.97463H3.95792H3.94132H3.92482H3.90844H3.89217H3.87602H3.85997H3.84405H3.82823H3.81254H3.79696H3.78149H3.76615H3.75093H3.73582H3.72084H3.70597H3.69123H3.67661H3.66212H3.64775H3.6335H3.61938H3.60539H3.59153H3.57779H3.56418H3.5507H3.53735H3.52413H3.51105H3.49809H3.48528H3.47259H3.46004H3.44762H3.43534H3.4232H3.4112H3.39933H3.39819ZM9.00002 19.5762C8.20923 19.5762 7.552 19.0118 7.41201 18.272H10.588C10.448 19.0118 9.7908 19.5762 9.00002 19.5762Z" />
+</svg>`,q=V.b`
+<svg width="14" height="14" viewBox="0 0 14 14" fill="var(--neutral-foreground-rest)" xmlns="http://www.w3.org/2000/svg" slot="start">
+    <path d="M7 0C7.64258 0 8.26009 0.0843099 8.85254 0.25293C9.44954 0.416992 10.0078 0.651693 10.5273 0.957031C11.0469 1.26237 11.5186 1.62923 11.9424 2.05762C12.3708 2.48145 12.7376 2.95312 13.043 3.47266C13.3483 3.99219 13.583 4.55046 13.7471 5.14746C13.9157 5.73991 14 6.35742 14 7C14 7.64258 13.9157 8.26237 13.7471 8.85938C13.583 9.45182 13.3483 10.0078 13.043 10.5273C12.7376 11.0469 12.3708 11.5208 11.9424 11.9492C11.5186 12.373 11.0469 12.7376 10.5273 13.043C10.0078 13.3483 9.44954 13.5853 8.85254 13.7539C8.26009 13.918 7.64258 14 7 14C6.35742 14 5.73763 13.918 5.14062 13.7539C4.54818 13.5853 3.99219 13.3483 3.47266 13.043C2.95312 12.7376 2.47917 12.373 2.05078 11.9492C1.62695 11.5208 1.26237 11.0469 0.957031 10.5273C0.651693 10.0078 0.414714 9.45182 0.246094 8.85938C0.0820312 8.26237 0 7.64258 0 7C0 6.35742 0.0820312 5.73991 0.246094 5.14746C0.414714 4.55046 0.651693 3.99219 0.957031 3.47266C1.26237 2.95312 1.62695 2.48145 2.05078 2.05762C2.47917 1.62923 2.95312 1.26237 3.47266 0.957031C3.99219 0.651693 4.54818 0.416992 5.14062 0.25293C5.73763 0.0843099 6.35742 0 7 0ZM7 13.125C7.7474 13.125 8.46061 12.9974 9.13965 12.7422C9.82324 12.487 10.4476 12.1156 11.0127 11.6279L2.37207 2.9873C1.88444 3.55241 1.51302 4.17676 1.25781 4.86035C1.0026 5.53939 0.875 6.2526 0.875 7C0.875 7.5651 0.947917 8.1097 1.09375 8.63379C1.23958 9.15332 1.44466 9.64095 1.70898 10.0967C1.97786 10.5479 2.29688 10.9603 2.66602 11.334C3.03971 11.7031 3.45215 12.0221 3.90332 12.291C4.35905 12.5553 4.84668 12.7604 5.36621 12.9062C5.8903 13.0521 6.4349 13.125 7 13.125ZM11.6279 11.0127C12.1156 10.4476 12.487 9.82552 12.7422 9.14648C12.9974 8.46289 13.125 7.7474 13.125 7C13.125 6.4349 13.0521 5.89258 12.9062 5.37305C12.7604 4.84896 12.5531 4.36133 12.2842 3.91016C12.0199 3.45443 11.7008 3.04199 11.3271 2.67285C10.958 2.29915 10.5456 1.98014 10.0898 1.71582C9.63867 1.44694 9.15104 1.23958 8.62695 1.09375C8.10742 0.947917 7.5651 0.875 7 0.875C6.2526 0.875 5.53711 1.0026 4.85352 1.25781C4.17448 1.51302 3.55241 1.88444 2.9873 2.37207L11.6279 11.0127Z" />
+</svg>
+`,G=V.b`
+<svg width="14" height="14" viewBox="0 0 14 14" fill="var(--neutral-foreground-rest)" xmlns="http://www.w3.org/2000/svg" slot="start">
+    <path d="M7 0C7.64258 0 8.26009 0.0843099 8.85254 0.25293C9.44954 0.416992 10.0078 0.651693 10.5273 0.957031C11.0469 1.26237 11.5186 1.62923 11.9424 2.05762C12.3708 2.48145 12.7376 2.95312 13.043 3.47266C13.3483 3.99219 13.583 4.55046 13.7471 5.14746C13.9157 5.73991 14 6.35742 14 7C14 7.64258 13.9157 8.26237 13.7471 8.85938C13.583 9.45182 13.3483 10.0078 13.043 10.5273C12.7376 11.0469 12.3708 11.5208 11.9424 11.9492C11.5186 12.373 11.0469 12.7376 10.5273 13.043C10.0078 13.3483 9.44954 13.5853 8.85254 13.7539C8.26009 13.918 7.64258 14 7 14C6.35742 14 5.73763 13.918 5.14062 13.7539C4.54818 13.5853 3.99219 13.3483 3.47266 13.043C2.95312 12.7376 2.47917 12.373 2.05078 11.9492C1.62695 11.5208 1.26237 11.0469 0.957031 10.5273C0.651693 10.0078 0.414714 9.45182 0.246094 8.85938C0.0820312 8.26237 0 7.64258 0 7C0 6.35742 0.0820312 5.73991 0.246094 5.14746C0.414714 4.55046 0.651693 3.99219 0.957031 3.47266C1.26237 2.95312 1.62695 2.48145 2.05078 2.05762C2.47917 1.62923 2.95312 1.26237 3.47266 0.957031C3.99219 0.651693 4.54818 0.416992 5.14062 0.25293C5.73763 0.0843099 6.35742 0 7 0ZM7 13.125C7.7474 13.125 8.46061 12.9974 9.13965 12.7422C9.82324 12.487 10.4476 12.1156 11.0127 11.6279L2.37207 2.9873C1.88444 3.55241 1.51302 4.17676 1.25781 4.86035C1.0026 5.53939 0.875 6.2526 0.875 7C0.875 7.5651 0.947917 8.1097 1.09375 8.63379C1.23958 9.15332 1.44466 9.64095 1.70898 10.0967C1.97786 10.5479 2.29688 10.9603 2.66602 11.334C3.03971 11.7031 3.45215 12.0221 3.90332 12.291C4.35905 12.5553 4.84668 12.7604 5.36621 12.9062C5.8903 13.0521 6.4349 13.125 7 13.125ZM11.6279 11.0127C12.1156 10.4476 12.487 9.82552 12.7422 9.14648C12.9974 8.46289 13.125 7.7474 13.125 7C13.125 6.4349 13.0521 5.89258 12.9062 5.37305C12.7604 4.84896 12.5531 4.36133 12.2842 3.91016C12.0199 3.45443 11.7008 3.04199 11.3271 2.67285C10.958 2.29915 10.5456 1.98014 10.0898 1.71582C9.63867 1.44694 9.15104 1.23958 8.62695 1.09375C8.10742 0.947917 7.5651 0.875 7 0.875C6.2526 0.875 5.53711 1.0026 4.85352 1.25781C4.17448 1.51302 3.55241 1.88444 2.9873 2.37207L11.6279 11.0127Z" />
+</svg>`,X={[L.a.StopNotifying]:R,[L.a.Follow]:K,[L.a.NotInterested]:q,[L.a.Disable]:G},Q=V.b`
+<svg width="16" height="11" viewBox="0 0 16 11" fill="var(--neutral-foreground-hint)" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 2V9C16 9.27604 15.9453 9.53646 15.8359 9.78125C15.7318 10.0208 15.5885 10.2318 15.4062 10.4141C15.2292 10.5911 15.0182 10.7344 14.7734 10.8438C14.5286 10.9479 14.2708 11 14 11H1.94531C1.67969 11 1.42708 10.9479 1.1875 10.8438C0.953125 10.7396 0.747396 10.6016 0.570312 10.4297C0.398438 10.2526 0.260417 10.0469 0.15625 9.8125C0.0520833 9.57292 0 9.32031 0 9.05469V0H14V2H16ZM15 3H14V8.5C14 8.63542 13.9505 8.7526 13.8516 8.85156C13.7526 8.95052 13.6354 9 13.5 9C13.3646 9 13.2474 8.95052 13.1484 8.85156C13.0495 8.7526 13 8.63542 13 8.5V1H1V9.05469C1 9.1849 1.02344 9.30729 1.07031 9.42188C1.1224 9.53646 1.1901 9.63802 1.27344 9.72656C1.36198 9.8099 1.46354 9.8776 1.57812 9.92969C1.69271 9.97656 1.8151 10 1.94531 10H14C14.1406 10 14.2708 9.97396 14.3906 9.92188C14.5104 9.86979 14.6146 9.79948 14.7031 9.71094C14.7969 9.61719 14.8698 9.51042 14.9219 9.39062C14.974 9.27083 15 9.14062 15 9V3ZM12 3H2V2H12V3ZM12 9H8V8H12V9ZM12 7H8V6H12V7ZM12 5H8V4H12V5ZM7 9H2V3.97656H7V9ZM3 8H6V4.97656H3V8Z" />
+</svg>
+`,tt=V.b`
+<svg width="16" height="16" viewBox="0 0 16 16" fill="var(--neutral-foreground-hint)" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.7537 4.01293C15.4358 3.71511 14.9018 3.71511 14.584 4.01293L13.2108 5.29951C13.02 5.4782 12.7022 5.4782 12.5242 5.29951L7.7943 0.772652C7.09499 0.117449 5.93795 0.117449 5.23864 0.772652L3.16613 2.71444C2.84827 3.01226 2.84827 3.51259 3.16613 3.81041C3.484 4.10823 4.01802 4.10823 4.33589 3.81041L6.39568 1.88054C6.45925 1.82098 6.56097 1.82098 6.61183 1.88054L8.03588 3.21477L6.63726 4.51327C6.0651 5.04934 6.0651 5.91898 6.63726 6.45505C6.91698 6.71713 7.29843 6.86009 7.66715 6.86009C8.03588 6.86009 8.41732 6.72905 8.69705 6.45505L10.0702 5.16847L11.3417 6.38357C11.7613 6.7767 12.308 6.9673 12.8548 6.9673C13.4015 6.9673 13.9482 6.7767 14.3678 6.38357L15.741 5.09699C16.0843 4.79917 16.0843 4.31075 15.7537 4.01293Z" />
+<path d="M5.70892 6.54091C5.45463 6.30265 5.06047 6.23118 4.72989 6.37413C4.3993 6.50517 4.18315 6.8149 4.19587 7.16037L4.27215 10.9248H0.890032C0.394157 10.9248 0 11.2941 0 11.7587C0 12.2233 0.394157 12.5926 0.890032 12.5926H4.64088C5.02232 12.5926 5.37834 12.4496 5.65806 12.1995C5.92507 11.9374 6.06493 11.6038 6.06493 11.2465L6.01408 9.17363L8.45531 11.4252L5.0859 14.582C4.7426 14.9037 4.7426 15.4398 5.0859 15.7614C5.26391 15.9282 5.49277 15.9997 5.70892 15.9997C5.92507 15.9997 6.16665 15.9163 6.33194 15.7614L10.3371 12.0089C10.5024 11.854 10.6041 11.6396 10.6041 11.4132C10.6041 11.1869 10.5024 10.9725 10.3371 10.8176L5.70892 6.54091Z" />
+<path d="M11.8654 3.2641C12.7656 3.2641 13.4954 2.53341 13.4954 1.63205C13.4954 0.730695 12.7656 0 11.8654 0C10.9651 0 10.2354 0.730695 10.2354 1.63205C10.2354 2.53341 10.9651 3.2641 11.8654 3.2641Z"/>
+</svg>
+`,et=V.b`
+<svg width="14" height="15" viewBox="0 0 14 15" fill="var(--neutral-foreground-hint)" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.7812 5.41406C12.1198 5.58594 12.4245 5.79948 12.6953 6.05469C12.9714 6.30469 13.2057 6.58594 13.3984 6.89844C13.5911 7.20573 13.7396 7.53906 13.8438 7.89844C13.9479 8.2526 14 8.61979 14 9H13C13 8.58854 12.9193 8.20052 12.7578 7.83594C12.6016 7.47135 12.388 7.15365 12.1172 6.88281C11.8464 6.61198 11.5286 6.39844 11.1641 6.24219C10.7995 6.08073 10.4115 6 10 6C9.58854 6 9.20052 6.08073 8.83594 6.24219C8.47135 6.39844 8.15365 6.61198 7.88281 6.88281C7.61198 7.15365 7.39583 7.47135 7.23438 7.83594C7.07812 8.20052 7 8.58854 7 9C7 9.47396 6.89062 9.92448 6.67188 10.3516C6.45833 10.7786 6.16146 11.1328 5.78125 11.4141C6.11979 11.5859 6.42448 11.7995 6.69531 12.0547C6.97135 12.3047 7.20573 12.5859 7.39844 12.8984C7.59115 13.2057 7.73958 13.5391 7.84375 13.8984C7.94792 14.2526 8 14.6198 8 15H7C7 14.5885 6.91927 14.2005 6.75781 13.8359C6.60156 13.4714 6.38802 13.1536 6.11719 12.8828C5.84635 12.612 5.52865 12.3984 5.16406 12.2422C4.79948 12.0807 4.41146 12 4 12C3.58854 12 3.20052 12.0807 2.83594 12.2422C2.47135 12.3984 2.15365 12.612 1.88281 12.8828C1.61198 13.1536 1.39583 13.4714 1.23438 13.8359C1.07812 14.2005 1 14.5885 1 15H0C0 14.6198 0.0520833 14.2526 0.15625 13.8984C0.260417 13.5391 0.408854 13.2057 0.601562 12.8984C0.794271 12.5859 1.02604 12.3047 1.29688 12.0547C1.57292 11.7995 1.88021 11.5859 2.21875 11.4141C1.83854 11.1328 1.53906 10.7786 1.32031 10.3516C1.10677 9.92448 1 9.47396 1 9C1 8.58854 1.07812 8.20052 1.23438 7.83594C1.39583 7.47135 1.61198 7.15365 1.88281 6.88281C2.15365 6.61198 2.47135 6.39844 2.83594 6.24219C3.20052 6.08073 3.58854 6 4 6C4.47396 6 4.92448 6.10938 5.35156 6.32812C5.77865 6.54167 6.13281 6.83854 6.41406 7.21875C6.61198 6.82812 6.86458 6.47917 7.17188 6.17188C7.47917 5.86458 7.82812 5.61198 8.21875 5.41406C7.83854 5.13281 7.53906 4.77865 7.32031 4.35156C7.10677 3.92448 7 3.47396 7 3C7 2.58854 7.07812 2.20052 7.23438 1.83594C7.39583 1.47135 7.61198 1.15365 7.88281 0.882812C8.15365 0.611979 8.47135 0.398438 8.83594 0.242188C9.20052 0.0807292 9.58854 0 10 0C10.4115 0 10.7995 0.0807292 11.1641 0.242188C11.5286 0.398438 11.8464 0.611979 12.1172 0.882812C12.388 1.15365 12.6016 1.47135 12.7578 1.83594C12.9193 2.20052 13 2.58854 13 3C13 3.47396 12.8906 3.92448 12.6719 4.35156C12.4583 4.77865 12.1615 5.13281 11.7812 5.41406ZM4 11C4.27083 11 4.52865 10.9479 4.77344 10.8438C5.01823 10.7344 5.22917 10.5911 5.40625 10.4141C5.58854 10.2318 5.73177 10.0208 5.83594 9.78125C5.94531 9.53646 6 9.27604 6 9C6 8.72917 5.94531 8.47135 5.83594 8.22656C5.73177 7.98177 5.58854 7.77083 5.40625 7.59375C5.22917 7.41146 5.01823 7.26823 4.77344 7.16406C4.52865 7.05469 4.27083 7 4 7C3.72396 7 3.46354 7.05469 3.21875 7.16406C2.97917 7.26823 2.76823 7.41146 2.58594 7.59375C2.40885 7.77083 2.26562 7.98177 2.15625 8.22656C2.05208 8.47135 2 8.72917 2 9C2 9.27604 2.05208 9.53646 2.15625 9.78125C2.26562 10.0208 2.40885 10.2318 2.58594 10.4141C2.76823 10.5911 2.97917 10.7344 3.21875 10.8438C3.46354 10.9479 3.72396 11 4 11ZM8 3C8 3.27604 8.05208 3.53646 8.15625 3.78125C8.26562 4.02083 8.40885 4.23177 8.58594 4.41406C8.76823 4.59115 8.97917 4.73438 9.21875 4.84375C9.46354 4.94792 9.72396 5 10 5C10.2708 5 10.5286 4.94792 10.7734 4.84375C11.0182 4.73438 11.2292 4.59115 11.4062 4.41406C11.5885 4.23177 11.7318 4.02083 11.8359 3.78125C11.9453 3.53646 12 3.27604 12 3C12 2.72917 11.9453 2.47135 11.8359 2.22656C11.7318 1.98177 11.5885 1.77083 11.4062 1.59375C11.2292 1.41146 11.0182 1.26823 10.7734 1.16406C10.5286 1.05469 10.2708 1 10 1C9.72396 1 9.46354 1.05469 9.21875 1.16406C8.97917 1.26823 8.76823 1.41146 8.58594 1.59375C8.40885 1.77083 8.26562 1.98177 8.15625 2.22656C8.05208 2.47135 8 2.72917 8 3Z" />
+</svg>
+`,it=V.b`
+<svg width="16" height="16" viewBox="0 0 16 16" fill="var(--neutral-foreground-hint)" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.16992 6.45312L1.61035 9.57324L7.41113 12.4736L15.875 7.18262V8.39551L7.46387 13.6514L1.25 10.5488V14.7588H15.875V15.8838H0.125V0.133789H1.25V8.50977L5.22266 5.0293L7.4375 7.27051L13.625 1.08301L15.875 3.33301V4.79199L13.625 2.54199L7.4375 8.72949L5.16992 6.45312Z" />
+</svg>
+`;var nt=i("Sunj"),ot=i("pH9t");nt.a,ot.a;const at=V.b`
+    <fluent-menu class="notification-menu-container">
+        ${Object(U.c)(t=>t.actions,V.b`
+            <fluent-menu-item
+                tabindex="0"
+                role="menuitem"
+                @click="${(t,e)=>{var i,n;return null===(n=null===(i=null==e?void 0:e.parentContext)||void 0===i?void 0:i.parent)||void 0===n?void 0:n.handleClickActions(t)}}"
+                ${Object(z.b)((t,e)=>e.parentContext.parent.notificationBellWCTelemetry.notificationActionClick(e.parent,t).getMetadataTag())}
+            >
+                ${t=>X[t.iconName]}
+                ${t=>t.displayText}
+            </fluent-menu-item>
+        `)}
+    </fluent-menu>
+`,rt=V.b`
+<div class="notification-item_content notification-item_content_3col">${t=>t.body}</div>
+
+`,st=V.b`
+<div class="notification-item_content notification-item_content_2col">${t=>t.body}</div>
+`,ct=V.b`
+<div class="notification-item_content">${t=>t.body}</div>
+${Object(E.a)(t=>t.scenarioSpecificParameters,()=>V.b`<div class="notification-item_content_stock_data">
+    <span class="notification-item_content_stock_price">${t=>t.scenarioSpecificParameters.Price}</span>
+    <span class="notification-item_content_stock_change" style="color: ${t=>t.scenarioSpecificParameters.PriceChange>0?"#19C453":"#D83B01"}">
+        ${Object(E.a)(t=>t.scenarioSpecificParameters.PriceChange>0,V.b`<svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 0L10.2631 8.25L0.73686 8.25L5.5 0Z" fill="#19C453"/></svg>`)}
+        ${Object(E.a)(t=>t.scenarioSpecificParameters.PriceChange<0,V.b`<svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 9L0.736861 0.749999L10.2631 0.75L5.5 9Z" fill="#D80101"/></svg>`)}
+        ${t=>t.scenarioSpecificParameters.PriceChange}
+        ${Object(E.a)(t=>t.scenarioSpecificParameters.PriceChangePercent,V.b`<span class="notification-item_content_stock_changePercent">(${t=>t.scenarioSpecificParameters.PriceChangePercent})
+    </span>`)}
+</div>`)}
+`,lt=V.b`
+    <div
+        class="notification-item"
+        ${Object(z.b)((t,e)=>e.parent.notificationBellWCTelemetry.notificationItemContentView(t).getMetadataTag())}
+    >
+        <div class="notification-item_start">
+            ${t=>(t=>{switch(t){case L.e.BroadcastNews_BreakingNews:case L.e.BroadcastNews_DailyBrief:case L.e.BroadcastNews_TopStories:case L.e.MsnNews_DailyBriefCoronavirus:return Q;case L.e.SportsTeam_GameEnded:case L.e.SportsTeam_SportsTopStories:return tt;case L.e.Finance_StockChangeAtMarketClose:case L.e.Finance_Watchlist:case L.e.Shopping_PriceDrop:case L.e.Shopping_DealOfTheDay:case L.e.Shopping_DealOfTheDay_2:return it;case L.e.Community_SocialAchievements:case L.e.Community_SocialAlerts:case L.e.Community_SocialFollowers:case L.e.Community_SocialReactions:case L.e.Community_SocialReplies:case L.e.QuizType_NewQuizAvailable:default:return et}})(t.type)}
+        </div>
+        <div class="notification-item_middle">
+            <div
+                class="notification-item_middle_title ${t=>"New"===t.state?"notification-item_middle_title_unread":""}"
+                style="${t=>t.type===L.e.BroadcastNews_BreakingNews?"color: #D80101;":""}"
+            >${t=>(t=>{switch(t.type){case L.e.Community_SocialAlerts:return"Alert";case L.e.Community_SocialAchievements:return"Badge";case L.e.Community_SocialFollowers:return"Follower";case L.e.Community_SocialReactions:return"Reaction";case L.e.Community_SocialReplies:return"Reply";default:return t.title}})(t)}</div>
+            <a
+                class="notification-item-link"
+                href="${t=>t.clickThroughUrl}"
+                target="_blank"
+                ${Object(z.b)((t,e)=>e.parent.notificationBellWCTelemetry.notificationItemClick(t).getMetadataTag())}
+                @mousedown="${(t,e)=>e.parent.bingTelemetry.fireBingTelemetry(H.Click,t.clickTrackingPayload)}"
+            >
+                ${t=>(t=>{switch(t.type){case L.e.Finance_StockChangeAtMarketClose:case L.e.Finance_Watchlist:case L.e.Shopping_PriceDrop:return ct;case L.e.SportsTeam_GameEnded:return st;default:return rt}})(t)}
+            </a>
+            <div class="notification-item_bottom">
+                ${Object(E.a)(t=>{var e;return null===(e=t.scenarioSpecificParameters)||void 0===e?void 0:e.ProviderName},V.b`${t=>t.scenarioSpecificParameters.ProviderName}`)}
+                ${(t,e)=>((t,e)=>{const i=Object(J.a)(t,f.b.Locale,{JustNow:e.JustNow,NumberDayAgo:e.NumberDayAgo,NumberDaysAgo:e.NumberDaysAgo,NumberHourAgo:e.NumberHourAgo,NumberHoursAgo:e.NumberHoursAgo,NumberMinuteAgo:e.NumberMinuteAgo,NumberMinutesAgo:e.NumberMinutesAgo},1);return i?" · "+i:""})(new Date(t.sentTime),e.parent.strings)}
+            </div>
+        </div>
+        <div class="notification-item_end">
+            ${Object(E.a)(t=>{var e;return(null===(e=t.actions)||void 0===e?void 0:e.length)>0},V.b`
+                <fluent-button 
+                    appearance="stealth"
+                    class="notification-item_end_icon"
+                    role="button"
+                    aria-label="${(t,e)=>e.parent.strings.cardAction}"
+                    title="${(t,e)=>e.parent.strings.cardAction}"
+                    @click="${(t,e)=>e.parent.toggleCardActionMenu(e.index)}"
+                    @keypress=${(t,e)=>e.parent.toggleCardActionMenu(e.index)}
+                    ${Object(z.b)((t,e)=>e.parent.notificationBellWCTelemetry.notificationActionMenuIconClick(t).getMetadataTag())}
+                >${Y}</fluent-button>
+            `)}
+            ${Object(E.a)((t,e)=>e.index===e.parent.currMenuId,at)}
+            ${Object(E.a)(t=>t.imageUrl,V.b`<img class="notification-item_end_img" src="${t=>{return(e=t.imageUrl).startsWith("/")?"//bing.com"+e:e;var e}}" />`)}
+        </div>
+    </div>
+`,dt=V.b`
+<div class="notification-null-page">
+    <div class="image">
+        <svg width="98" height="86" viewBox="0 0 98 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M56.0684 76.7649C70.0424 73.2407 87.1086 62.9014 89.6699 43.5154C92.2312 24.1295 79.9294 8.78134 64.7151 8.28634C56.46 8.01776 49.9368 13.4064 45.5755 18.3184C34.9159 30.324 20.2242 20.6054 10.7649 33.3177C1.30562 46.0301 5.18932 61.3271 14.8685 69.7847C24.5477 78.2422 42.0945 80.2892 56.0684 76.7649Z" fill="#F4FBFC"/>
+            <path d="M82.844 16.1656C82.5655 15.8862 81.7471 15.8813 81.4682 16.1603C81.1705 16.458 81.1722 17.6576 81.4683 17.9568C81.7443 18.2356 82.566 18.1891 82.8475 17.9157C82.8582 17.9053 82.8691 17.8949 82.88 17.8846C83.1862 17.5962 83.1409 16.4636 82.844 16.1656Z" fill="#05E9F5"/>
+            <path d="M77.7147 23.1759C77.557 23.6852 77.0254 24.0858 76.3438 24.206C77.0178 24.3242 77.5468 24.7172 77.7045 25.2208C77.8647 24.7172 78.3938 24.3223 79.0703 24.206C78.3938 24.0801 77.8724 23.6814 77.7172 23.1759H77.7147Z" fill="#05E9F5"/>
+            <path d="M95.5621 19.5227C95.5229 19.4228 95.3344 19.4212 95.2934 19.5203C95.0135 20.1984 94.4703 20.7388 93.7898 21.0142C93.6919 21.0538 93.6915 21.2323 93.7893 21.2722C94.4774 21.5533 95.0219 22.1017 95.298 22.7909C95.3368 22.8878 95.5085 22.8893 95.549 22.7931C95.8339 22.1168 96.3799 21.5818 97.0628 21.3111C97.1613 21.2721 97.1627 21.0919 97.0647 21.0514C96.3753 20.7665 95.8331 20.2138 95.5621 19.5227Z" fill="#A7E6EB"/>
+            <path d="M9.66152 70.4664C9.38245 70.1404 8.3225 70.131 8.03806 70.4523C7.91626 70.5899 7.78423 70.7181 7.64314 70.836C7.31888 71.1067 7.31738 72.0728 7.64108 72.3443C7.82525 72.4987 7.9938 72.671 8.1442 72.8585C8.40539 73.1842 9.31148 73.1922 9.57854 72.8713C9.72202 72.699 9.88109 72.5401 10.0536 72.3969C10.3798 72.1263 10.3868 71.1439 10.0645 70.8687C9.91979 70.7452 9.78506 70.6107 9.66152 70.4664Z" fill="#A7E6EB"/>
+            <path d="M1.51291 63.8231C1.46554 63.7268 1.25768 63.725 1.20861 63.8204C1.03102 64.1656 0.746943 64.4466 0.399184 64.6201C0.304675 64.6672 0.304281 64.8616 0.398666 64.9089C0.756224 65.0885 1.04519 65.3805 1.22081 65.7397C1.26665 65.8335 1.45218 65.8351 1.49969 65.7421C1.67884 65.3917 1.96716 65.108 2.32062 64.9345C2.41573 64.8878 2.41719 64.6911 2.32274 64.6431C1.97066 64.464 1.6866 64.1759 1.51291 63.8231Z" fill="#A7E6EB"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M47.2103 68.9046C32.9016 70.4423 20.6923 66.0095 19.9395 59.0037C19.1865 51.9974 30.1751 45.0716 44.4838 43.5339C58.7925 41.9962 71.0023 46.4289 71.7553 53.4352C72.5082 60.441 61.519 67.3669 47.2103 68.9046Z" fill="#D68535"/>
+            <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="19" y="43" width="53" height="27">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M47.2651 68.9292C32.9564 70.4669 20.747 66.0336 19.9941 59.0278C19.2412 52.0215 30.2298 45.0957 44.5385 43.558C58.8472 42.0202 71.057 46.453 71.81 53.4593C72.5629 60.4651 61.5738 67.3915 47.2651 68.9292Z" fill="white"/>
+            </mask>
+            <g mask="url(#mask0)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M46.0965 58.0452C35.4195 59.1926 27.0405 62.6989 27.382 65.8764C27.7235 69.054 36.6562 70.6998 47.3331 69.5524C58.0105 68.4049 66.389 64.8987 66.0476 61.7212C65.7061 58.5437 56.7739 56.8978 46.0965 58.0452Z" fill="#EAA300"/>
+            </g>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M53.867 57.8069C54.0835 59.8215 51.4821 61.7523 48.0563 62.1205C44.6305 62.4886 41.6787 61.1546 41.4622 59.14C41.2457 57.1258 43.8467 55.1951 47.2725 54.8269C50.6982 54.4588 53.6505 55.7927 53.867 57.8069Z" fill="#D68535"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M49.5583 14.9601C49.2301 11.9057 45.7534 9.77384 41.7922 10.1995C37.8316 10.6252 34.8873 13.4471 35.2155 16.5015C35.5438 19.5564 39.0205 21.6877 42.9811 21.2621C46.9422 20.8364 49.8866 18.015 49.5583 14.9601Z" fill="#EAA300"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M42.18 12.0865C41.784 11.1471 40.4758 10.8065 39.2584 11.325C38.041 11.8436 37.3763 13.0256 37.7723 13.9645C38.1688 14.9038 39.477 15.2444 40.6939 14.7259C41.9113 14.2074 42.5769 13.0252 42.18 12.0865Z" fill="#FFC83D"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M44.042 32.0232L42.4659 32.1926C38.3045 32.6398 35.2684 36.4304 35.7184 40.617L36.6045 48.8625C37.0544 53.0492 40.8266 56.1081 44.988 55.6609L46.5641 55.4915C50.725 55.0443 53.7616 51.2537 53.3116 47.0671L52.4255 38.8215C51.9756 34.6349 48.2029 31.5761 44.042 32.0232Z" fill="#6B291F"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M66.5591 43.7306C62.491 39.9969 61.264 28.5801 61.264 28.5801C60.2499 22.1125 56.5995 19.2969 56.5995 19.2969C52.2029 13.9945 41.5363 15.6221 41.5363 15.6221C41.5363 15.6221 30.7675 16.2981 27.598 22.4136C27.598 22.4136 24.6292 25.9406 25.0124 32.4759C25.0124 32.4759 26.2393 43.8927 23.0574 48.4056C23.0574 48.4056 18.7464 55.7659 19.9819 58.3598C19.9819 58.3598 21.7982 47.2574 44.6719 44.7992C67.5456 42.3411 71.6795 52.804 71.6795 52.804C72.3361 50.0068 66.5591 43.7306 66.5591 43.7306Z" fill="#FFC83D"/>
+            <mask id="mask1" mask-type="alpha" maskUnits="userSpaceOnUse" x="19" y="15" width="53" height="44">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M66.5591 43.7306C62.491 39.9969 61.264 28.5801 61.264 28.5801C60.2499 22.1125 56.5995 19.2969 56.5995 19.2969C52.2029 13.9945 41.5363 15.6221 41.5363 15.6221C41.5363 15.6221 30.7675 16.2981 27.598 22.4136C27.598 22.4136 24.6292 25.9406 25.0124 32.4759C25.0124 32.4759 26.2393 43.8927 23.0574 48.4056C23.0574 48.4056 18.7464 55.7659 19.9819 58.3598C19.9819 58.3598 21.7982 47.2574 44.6719 44.7992C67.5456 42.3411 71.6795 52.804 71.6795 52.804C72.3361 50.0068 66.5591 43.7306 66.5591 43.7306Z" fill="white"/>
+            </mask>
+            <g mask="url(#mask1)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M41.6125 15.6772C41.6125 15.6772 42.176 25.0218 42.8153 28.3865C44.3884 36.6656 47.3004 41.9437 51.5345 44.4311C60.467 49.6788 77.4255 56.4741 77.4255 56.4741C77.4255 56.4741 78.4281 31.5232 77.6813 30.9185C76.9345 30.3138 62.3641 15.3834 62.3641 15.3834L48.9802 10.61L43.5092 10.2386C43.5092 10.2386 45.0057 12.2922 44.714 13.6925C44.4224 15.0928 41.6125 15.6772 41.6125 15.6772Z" fill="#FFB900"/>
+            </g>
+            <mask id="mask2" mask-type="alpha" maskUnits="userSpaceOnUse" x="35" y="32" width="19" height="25">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M42.5519 32.4938C38.3904 32.941 35.3544 36.7316 35.8043 40.9182L36.6904 49.1637C37.1403 53.3504 40.9125 56.4093 45.0739 55.9621L46.65 55.7927C50.8109 55.3455 53.8475 51.5549 53.3976 47.3683L52.5115 39.1228C52.0615 34.9361 48.2889 31.8773 44.128 32.3244L42.5519 32.4938Z" fill="white"/>
+            </mask>
+            <g mask="url(#mask2)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.6984 51.2528C52.4513 48.9536 49.0405 47.4346 45.0798 47.8602C41.1192 48.2859 38.1085 50.495 38.3556 52.7942C38.6027 55.093 42.014 56.6119 45.9746 56.1863C49.9352 55.7606 52.9454 53.5516 52.6984 51.2528Z" fill="#8D3927"/>
+            </g>
+            <mask id="mask3" mask-type="alpha" maskUnits="userSpaceOnUse" x="38" y="47" width="15" height="10">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.7116 51.4466C51.6134 53.7762 49.3723 55.5001 46.6498 55.7927L45.0737 55.9621C42.4835 56.2404 40.0441 55.1604 38.4628 53.2956C38.4101 53.1331 38.3741 52.9659 38.3556 52.7942C38.1085 50.495 41.1192 48.2859 45.0798 47.8602C49.0405 47.4346 52.4513 48.9536 52.6984 51.2528C52.7053 51.3175 52.7097 51.3821 52.7116 51.4466Z" fill="white"/>
+            </mask>
+            <g mask="url(#mask3)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M47.1712 49.5158C47.0409 48.3031 45.2414 47.5019 43.1522 47.7264C41.0634 47.9509 39.4748 49.1162 39.6051 50.3289C39.7355 51.5416 41.5354 52.3427 43.6241 52.1182C45.7134 51.8937 47.3015 50.7285 47.1712 49.5158Z" fill="#AB5438"/>
+            </g>
+        </svg>
+        ${'<svg class="icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">\n    <rect width="20" height="20" rx="10" fill="#6BB700"/>\n    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.6747 6.33105L14.6797 6.33329L14.6848 6.33536C14.8144 6.38788 14.9225 6.45955 15.0128 6.54988C15.1031 6.64021 15.1748 6.74831 15.2273 6.87787L15.2294 6.88297L15.2316 6.88801C15.2845 7.00703 15.3125 7.13867 15.3125 7.28699C15.3125 7.42683 15.2865 7.56014 15.2342 7.68927C15.1823 7.81725 15.1087 7.92819 15.0126 8.02425L9.57327 13.4705C9.47653 13.5672 9.3645 13.6436 9.23488 13.7001C9.10686 13.7515 8.97472 13.777 8.83616 13.777C8.6976 13.777 8.56546 13.7515 8.43744 13.7001C8.30782 13.6436 8.19579 13.5672 8.09905 13.4705L5.61907 10.9905C5.52233 10.8938 5.44596 10.7817 5.38941 10.6521C5.33802 10.5241 5.3125 10.3919 5.3125 10.2534C5.3125 10.1051 5.3405 9.97343 5.3934 9.8544L5.39473 9.85132C5.45206 9.71875 5.52711 9.60822 5.61907 9.51627C5.71093 9.42441 5.81807 9.35268 5.94318 9.30055L5.94727 9.29879C6.07273 9.24453 6.20791 9.21656 6.35617 9.21656C6.49602 9.21656 6.62932 9.24255 6.75845 9.2949C6.88644 9.34678 6.99722 9.42021 7.09328 9.51627L8.83634 11.2593L13.5387 6.54977C13.6347 6.45376 13.7455 6.38037 13.8734 6.32851C14.0025 6.27616 14.1358 6.25017 14.2757 6.25017C14.424 6.25017 14.5556 6.27815 14.6747 6.33105Z" fill="white"/>\n</svg>'}
+    </div>
+    <strong class="title">${t=>t.strings.nullCardTitle}</strong>
+    <div class="subtitle">
+        <span class="action-text" @click="${t=>t.switchToSettingPage(!0)}">${t=>t.strings.nullCardActionText}</span>
+        ${t=>t.strings.nullCardSubtitle}
+    </div>
+</div>
+`,ut=V.b`
+<svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent-foreground-rest)" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13.9297 7.71875C13.9297 7.76562 13.9297 7.8125 13.9297 7.85938C13.9349 7.90625 13.9375 7.95312 13.9375 8C13.9375 8.04688 13.9349 8.09375 13.9297 8.14062C13.9297 8.1875 13.9297 8.23438 13.9297 8.28125L15.9531 9.53906L14.7109 12.5312L12.3906 12C12.2656 12.1354 12.1354 12.2656 12 12.3906L12.5312 14.7109L9.53906 15.9531L8.28125 13.9297C8.23438 13.9297 8.1875 13.9323 8.14062 13.9375C8.09375 13.9375 8.04688 13.9375 8 13.9375C7.95312 13.9375 7.90625 13.9375 7.85938 13.9375C7.8125 13.9323 7.76562 13.9297 7.71875 13.9297L6.46094 15.9531L3.46875 14.7109L4 12.3906C3.86458 12.2656 3.73438 12.1354 3.60938 12L1.28906 12.5312L0.046875 9.53906L2.07031 8.28125C2.07031 8.23438 2.06771 8.1875 2.0625 8.14062C2.0625 8.09375 2.0625 8.04688 2.0625 8C2.0625 7.95312 2.0625 7.90625 2.0625 7.85938C2.06771 7.8125 2.07031 7.76562 2.07031 7.71875L0.046875 6.46094L1.28906 3.46875L3.60938 4C3.73438 3.86458 3.86458 3.73438 4 3.60938L3.46875 1.28906L6.46094 0.046875L7.71875 2.07031C7.76562 2.07031 7.8125 2.07031 7.85938 2.07031C7.90625 2.0651 7.95312 2.0625 8 2.0625C8.04688 2.0625 8.09375 2.0651 8.14062 2.07031C8.1875 2.07031 8.23438 2.07031 8.28125 2.07031L9.53906 0.046875L12.5312 1.28906L12 3.60938C12.1354 3.73438 12.2656 3.86458 12.3906 4L14.7109 3.46875L15.9531 6.46094L13.9297 7.71875ZM13.0156 8.73438C13.026 8.60938 13.0365 8.48698 13.0469 8.36719C13.0573 8.24219 13.0625 8.11719 13.0625 7.99219C13.0625 7.8724 13.0573 7.75 13.0469 7.625C13.0365 7.5 13.026 7.3776 13.0156 7.25781L14.8594 6.10938L14.1875 4.48438L12.0703 4.97656C11.9089 4.77865 11.7422 4.59635 11.5703 4.42969C11.4036 4.26302 11.2214 4.09635 11.0234 3.92969L11.5156 1.8125L9.89062 1.14062L8.73438 2.98438C8.61458 2.97396 8.49219 2.96354 8.36719 2.95312C8.24219 2.94271 8.11979 2.9375 8 2.9375C7.875 2.9375 7.75 2.94271 7.625 2.95312C7.50521 2.96354 7.38281 2.97396 7.25781 2.98438L6.10938 1.14062L4.48438 1.8125L4.97656 3.92969C4.77865 4.09115 4.59635 4.25781 4.42969 4.42969C4.26302 4.59635 4.09635 4.77865 3.92969 4.97656L1.8125 4.48438L1.14062 6.10938L2.98438 7.26562C2.97396 7.39062 2.96354 7.51562 2.95312 7.64062C2.94271 7.76042 2.9375 7.88281 2.9375 8.00781C2.9375 8.1276 2.94271 8.25 2.95312 8.375C2.96354 8.5 2.97396 8.6224 2.98438 8.74219L1.14062 9.89062L1.8125 11.5156L3.92969 11.0234C4.09115 11.2214 4.25521 11.4036 4.42188 11.5703C4.59375 11.737 4.77865 11.9036 4.97656 12.0703L4.48438 14.1875L6.10938 14.8594L7.26562 13.0156C7.38542 13.026 7.50781 13.0365 7.63281 13.0469C7.75781 13.0573 7.88021 13.0625 8 13.0625C8.125 13.0625 8.2474 13.0573 8.36719 13.0469C8.49219 13.0365 8.61719 13.026 8.74219 13.0156L9.89062 14.8594L11.5156 14.1875L11.0234 12.0703C11.2214 11.9089 11.4036 11.7448 11.5703 11.5781C11.737 11.4062 11.9036 11.2214 12.0703 11.0234L14.1875 11.5156L14.8594 9.89062L13.0156 8.73438ZM8 5.0625C8.40625 5.0625 8.78646 5.14062 9.14062 5.29688C9.5 5.44792 9.8125 5.65625 10.0781 5.92188C10.3438 6.1875 10.5521 6.5 10.7031 6.85938C10.8594 7.21354 10.9375 7.59375 10.9375 8C10.9375 8.40625 10.8594 8.78906 10.7031 9.14844C10.5521 9.5026 10.3438 9.8125 10.0781 10.0781C9.8125 10.3438 9.5 10.5547 9.14062 10.7109C8.78646 10.862 8.40625 10.9375 8 10.9375C7.59375 10.9375 7.21094 10.862 6.85156 10.7109C6.4974 10.5547 6.1875 10.3438 5.92188 10.0781C5.65625 9.8125 5.44531 9.5026 5.28906 9.14844C5.13802 8.78906 5.0625 8.40625 5.0625 8C5.0625 7.59375 5.13802 7.21354 5.28906 6.85938C5.44531 6.5 5.65625 6.1875 5.92188 5.92188C6.1875 5.65625 6.4974 5.44792 6.85156 5.29688C7.21094 5.14062 7.59375 5.0625 8 5.0625ZM8 10.0625C8.28646 10.0625 8.55469 10.0104 8.80469 9.90625C9.05469 9.79688 9.27344 9.64844 9.46094 9.46094C9.64844 9.27344 9.79427 9.05469 9.89844 8.80469C10.0078 8.55469 10.0625 8.28646 10.0625 8C10.0625 7.71354 10.0078 7.44531 9.89844 7.19531C9.79427 6.94531 9.64844 6.72656 9.46094 6.53906C9.27344 6.35156 9.05469 6.20573 8.80469 6.10156C8.55469 5.99219 8.28646 5.9375 8 5.9375C7.71354 5.9375 7.44531 5.99219 7.19531 6.10156C6.94531 6.20573 6.72656 6.35156 6.53906 6.53906C6.35156 6.72656 6.20312 6.94531 6.09375 7.19531C5.98958 7.44531 5.9375 7.71354 5.9375 8C5.9375 8.28646 5.98958 8.55469 6.09375 8.80469C6.20312 9.05469 6.35156 9.27344 6.53906 9.46094C6.72656 9.64844 6.94531 9.79688 7.19531 9.90625C7.44531 10.0104 7.71354 10.0625 8 10.0625Z" />
+</svg>
+`,Ct=V.b`
+    <div class="notificationbell-container" id="notificationBell" ${Object(z.b)(t=>t.notificationBellWCTelemetry.bellContentView(t.count).getMetadataTag())}>
+        <fluent-button
+            appearance="stealth"
+            class="notification-bell ${t=>t.isOnImage?"image-enable":""}"
+            role="button"
+            @click="${t=>t.isOpen?t.handleClose():t.handleOpen()}"
+            ${Object(z.b)(t=>t.notificationBellWCTelemetry.bellClick().getMetadataTag())}
+            aria-expanded="${t=>t.isOpen&&!t.isLoading}"
+            aria-label="${t=>t.strings.title}"
+            title="${t=>t.strings.title}"
+        >
+            ${W}
+            ${Object(E.a)(t=>t.count,V.b`<span class="notification-count">${t=>t.count}</span>`)}
+        </fluent-button>
+        ${Object(E.a)(t=>t.isOpen&&!t.isLoading,V.b`
+            <div class="notification-content ${t=>t.config.addBrandLogo?"notification-content-logo":""}">
+                <div class="notification-header">
+                    <div class="notification-header-title">${t=>t.strings.title}</div>
+                    ${Object(E.a)(t=>t.config.moreSettings,V.b`
+                        <fluent-button
+                            appearance="stealth"
+                            class="notification-header-settings"
+                            @click=${t=>t.switchToSettingPage()}
+                            aria-label="${t=>t.strings.settings}"
+                            title="${t=>t.strings.settings}"
+                            ${Object(z.b)(t=>t.notificationBellWCTelemetry.notificationSettingPage().getMetadataTag())}
+                        >
+                            <slot slot="start">${ut}</slot>
+                            <span>${t=>t.strings.settings}</span>
+                        </fluent-button>
+                    `)}
+                </div>
+                ${Object(E.a)(t=>{var e;return(null===(e=t.notifications)||void 0===e?void 0:e.length)>0},V.b`
+                    <div class="notification-list">
+                        <div class="notification-list-inner">
+                            ${Object(U.c)(t=>t.notifications,lt,{positioning:!0})}
+                        </div>
+                    </div>
+                `)}
+                ${Object(E.a)(t=>{var e;return(null===(e=t.notifications)||void 0===e?void 0:e.length)<1},dt)}
+            </div>
+        `)}
+    </div>
+`;var ht=i("cQsl"),gt=i("kL0l"),ft=i("CzTk"),pt=i("4X57");const mt=pt.a`
+    .notification-content,
+    .notification-item > .notification-item_end > .notification-menu-container {
+        right: 0;
+    }
+`,Ht=pt.a`
+    .notification-content,
+    .notification-item > .notification-item_end > .notification-menu-container {
+        left: 0;
+    }
+`,bt=pt.a`
+:host {
+    
+}
+
+.notificationbell-container {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification-bell {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    background: transparent;
+}
+
+.notification-bell svg {
+    width: 24px;
+    height: 24px;
+}
+
+.notification-bell.image-enable:hover {
+    background: rgba(17, 17, 17, 0.8);
+}
+
+.notification-bell:hover {
+    background: var(--neutral-fill-rest);
+}
+
+.notification-count {
+    position: absolute;
+    top: 0;
+    right: -8px;
+    background: #D83B01;
+    border: 1px solid #FF9349;
+    box-sizing: border-box;
+    box-shadow: 0px 3.2px 7.2px rgba(0, 0, 0, 0.13), 0px 0.6px 1.8px rgba(0, 0, 0, 0.11);
+    border-radius: 16px;
+    width: 16px;
+    height: 16px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+}
+
+.notification-content {
+    --elevation: 11;
+    background: var(--neutral-layer-floating);
+    width: 360px;
+    border-radius: 5px;
+    position: absolute;
+    top: 26px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--neutral-foreground-rest);
+    filter: drop-shadow(0px 12.8px 28.8px rgba(0, 0, 0, 0.13)), drop-shadow(0px 0px 9.2px rgba(0, 0, 0, 0.11));
+    ${ht.a};
+}
+
+.notification-content-logo {
+    top: 39px;
+}
+
+.notification-header {
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    box-shadow: 0px 1px 2px var(--neutral-divider-rest);
+}
+
+.notification-header-title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--neutral-foreground-rest);
+}
+
+.notification-header-settings {
+    font-size: 14px;
+    background: transparent;
+    color: var(--accent-foreground-rest);
+}
+
+.notification-list {
+    max-height: 520px;
+    overflow-x: auto;
+}
+
+.notification-list::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--neutral-outline-hover);
+}
+  
+.notification-list::-webkit-scrollbar-thumb {
+    background: var(--neutral-divider-rest);
+    border-radius: 4px;
+}
+
+.notification-list-inner {
+    max-height: calc(100vh - 120px);
+}
+
+.notification-item {
+    min-height: 111px;
+    padding: 12px 16px;
+    border-top: solid 1px var(--neutral-divider-rest);
+    box-sizing: border-box;
+    display: flex;
+}
+
+.notification-item > .notification-item_start {
+    flex-basis: 28px;
+}
+
+.notification-item > .notification-item_middle {
+    flex: 1;
+    position: relative;
+}
+
+.notification-item > .notification-item_middle > .notification-item_middle_title {
+    font-size: 12px;
+    line-height: 16px;
+    height: 16px;
+    color: var(--neutral-foreground-hint);
+    margin-bottom: 6px;
+}
+
+.notification-item > .notification-item_middle > .notification-item_middle_title_unread:after {
+    content: "";
+    margin: 0 6px;
+    height: 6px;
+    width: 6px;
+    border-radius: 4px;
+    background: #D80101;
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+}
+
+.notification-item > .notification-item_middle .notification-item-link {
+    text-decoration: none;
+}
+
+.notification-item > .notification-item_middle .notification-item_content {
+    margin: 0 0 6px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--neutral-foreground-rest);
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.notification-item:hover > .notification-item_middle .notification-item_content {
+    text-decoration: underline;
+}
+
+
+.notification-item > .notification-item_middle .notification-item_content_3col {
+    -webkit-line-clamp: 3;
+}
+
+.notification-item > .notification-item_middle .notification-item_content_2col {
+    -webkit-line-clamp: 2;
+}
+
+.notification-item > .notification-item_middle .notification-item_bottom {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--neutral-foreground-hint);
+}
+
+.notification-item > .notification-item_middle .notification-item_content_stock_data {
+    margin-bottom: 8px;
+}
+
+.notification-item > .notification-item_middle .notification-item_content_stock_price {
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--neutral-foreground-rest);
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+.notification-item > .notification-item_middle .notification-item_content_stock_change {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.notification-item > .notification-item_end {
+    position: relative;
+    padding: 0 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.notification-item > .notification-item_end > .notification-item_end_icon {
+    height: 20px;
+    width: 20px;
+    min-width: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin-bottom: 1px;
+    background: transparent;
+}
+
+.notification-item > .notification-item_end > .notification-item_end_icon:hover {
+    background: var(--neutral-fill-hover);
+}
+
+.notification-item > .notification-item_end > .notification-item_end_icon svg {
+    height: 10px;
+    width: 10px;
+}
+
+.notification-item > .notification-item_end > .notification-item_end_img {
+    display: block;
+    width: 64px;
+    height: 64px;
+    border-radius: 2px;
+}
+
+.notification-item > .notification-item_end > .notification-menu-container {
+    position: absolute;
+    top: 20px;
+    width: 211px;
+}
+
+.notification-item > .notification-item_end > .notification-menu-container fluent-menu-item::part(content) {
+    font-size: 12px;
+    line-height: 16px;
+    width: 155px;
+}
+
+.notificationbell-container .notification-null-page {
+    height: 222px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    line-height: 20px;
+    flex-direction: column;
+}
+
+.notificationbell-container .notification-null-page > .image {
+    padding: 22px 0 9px;
+    flex-basis: 116px;
+    position: relative;
+}
+
+.notificationbell-container .notification-null-page > .image > .icon {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.notificationbell-container .notification-null-page > .title {
+    width: 208px;
+    text-align: center;
+}
+
+.notificationbell-container .notification-null-page > .subtitle {
+    width: 274px;
+    text-align: center;
+    margin: 16px 0 34px;
+}
+
+.notificationbell-container .notification-null-page .action-text {
+    color: #0078D4;
+    cursor: pointer;
+}
+
+`.withBehaviors(gt.k,new ft.a(mt,Ht)),vt={experienceConfigSchema:l}},Oa3u:function(t,e,i){"use strict";i.d(e,"c",(function(){return r})),i.d(e,"a",(function(){return c})),i.d(e,"d",(function(){return l})),i.d(e,"b",(function(){return d}));var n=i("m2Vd");const o=new RegExp("\\:([\\d]{2})");function a(){return new Date}function r(t){return(a().getTime()-t.getTime())/1e3}function s(t,e){return new Date(t.getFullYear(),t.getMonth(),t.getDate()+e,t.getHours(),t.getMinutes(),t.getSeconds(),t.getMilliseconds())}function c(t,e){return new Date(t.valueOf()+60*e*60*1e3)}function l(t,e){const i=parseInt(e),n=parseInt(o.exec(e)[1]),a=i<0?-1:1,r=new Date(t.getTime()+60*(60*i+a*n)*1e3),s=("0"+Math.abs(i)).substr(-2)+":"+("0"+Math.abs(n)).substr(-2);return r.toISOString().replace("Z",(a<0?"-":"+")+s)}function d(t){const e=r(t),i=function(){const t=a();return t.setHours(0,0,0,0),t}(),o=s(i,-1),c=s(i,-6),l=function(){const t=a();return new Date(t.getFullYear(),0,0,0,0,0,0)}();return e>=-3300&&e<-60?n.a.InMinutes:e<0?n.a.None:e<120?n.a.JustNow:e<3600?n.a.LessThanOneHour:t>=i?n.a.Today:t>=o?n.a.Yesterday:t>=c?n.a.ThisWeek:t>=l?n.a.ThisYear:n.a.FullDate}},S7gc:function(t,e,i){"use strict";i.d(e,"a",(function(){return a}));var n,o=i("dMmp");!function(t){t[t.Default=0]="Default",t[t.Medium=1]="Medium",t[t.MonthDate=2]="MonthDate",t[t.Weekday=3]="Weekday",t[t.Time=4]="Time"}(n||(n={}));class a{constructor(){this.dateFormatOptionsMap=new Map,this.setSupportsLocaleSpecifiers(),this.dateFormatOptionsMap.set(n.Medium,{year:"numeric",month:"short",day:"numeric"}),this.dateFormatOptionsMap.set(n.MonthDate,{month:"short",day:"numeric"}),this.dateFormatOptionsMap.set(n.Weekday,{weekday:"short"}),this.dateFormatOptionsMap.set(n.Time,{hour:"numeric",minute:"numeric"})}overrideDateFormat(t,e){t&&e&&this.dateFormatOptionsMap.set(t,e)}localizedDateString(t,e){return this.formatDate(t,n.Default,e)}localizedDateStringMedium(t,e){return this.formatDate(t,n.Medium,e)}localizedMonthDate(t,e){return this.formatDate(t,n.MonthDate,e)}localizedWeekday(t,e){return this.formatDate(t,n.Weekday,e)}formatTimeFromDate(t,e){return this.supportsLocaleSpecifiers&&this.dateFormatOptionsMap?t.toLocaleTimeString(e,this.dateFormatOptionsMap.get(n.Time)):t.toTimeString()}format(t,...e){return t?o.String.Format(t,...e):""}localizedNumberString(t,e){return this.supportsLocaleSpecifiers?t.toLocaleString(e):t.toString()}formatDate(t,e,i){let o=null;if(this.supportsLocaleSpecifiers)if(e===n.Default)o=t.toLocaleDateString(i);else if(this.dateFormatOptionsMap){const n=this.dateFormatOptionsMap.get(e);o=t.toLocaleDateString(i,n)}return null===o&&(o=t.toDateString()),null!==o?o.replace(/\u200E/g,"").replace(/\u200F/g,""):o}setSupportsLocaleSpecifiers(){this.supportsLocaleSpecifiers=(()=>{try{(0).toLocaleString("i")}catch(t){return"RangeError"===t.name}return!1})()}}},dMmp:function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=function(){function t(){}return t.IsNullOrWhiteSpace=function(t){try{return null==t||"undefined"==t||t.toString().replace(/\s/g,"").length<1}catch(t){return console.log(t),!1}},t.Join=function(e){for(var i=[],n=1;n<arguments.length;n++)i[n-1]=arguments[n];try{var o=i[0];if(Array.isArray(o)||o instanceof Array){for(var a=t.Empty,r=0;r<o.length;r++){var s=o[r];r<o.length-1?a+=s+e:a+=s}return a}if("object"==typeof o){var c=t.Empty,l=o;return Object.keys(o).forEach((function(t){c+=l[t]+e})),c=c.slice(0,c.length-e.length)}var d=i;return t.join.apply(t,[e].concat(d))}catch(e){return console.log(e),t.Empty}},t.Format=function(e){for(var i=[],n=1;n<arguments.length;n++)i[n-1]=arguments[n];try{return e.match(t.regexNumber)?t.format(t.regexNumber,e,i):e.match(t.regexObject)?t.format(t.regexObject,e,i,!0):t.Empty}catch(e){return console.log(e),t.Empty}},t.format=function(e,i,n,o){return void 0===o&&(o=!1),i.replace(e,(function(e,i){var a,r=e.split(":");return r.length>1&&(i=r[0].replace("{",""),e=r[1].replace("}","")),null==(a=o?n[0][i]:n[i])||null==a||e.match(/{\d+}/)||void 0!==(a=t.parsePattern(e,a))&&null!=a?a:t.Empty}))},t.parsePattern=function(e,i){switch(e){case"L":return i.toLowerCase();case"U":return i.toUpperCase();case"d":if("string"==typeof i)return t.getDisplayDateFromString(i);if(i instanceof Date)return t.Format("{0:00}.{1:00}.{2:0000}",i.getDate(),i.getMonth(),i.getFullYear());break;case"s":if("string"==typeof i)return t.getSortableDateFromString(i);if(i instanceof Date)return t.Format("{0:0000}-{1:00}-{2:00}",i.getFullYear(),i.getMonth(),i.getDate());break;case"n":"string"!=typeof i&&(i=i.toString());var n=i.replace(/,/g,".");if(isNaN(parseFloat(n))||n.length<=3)break;var o=n.split(/[^0-9]+/g),a=o;o.length>1&&(a=[t.join.apply(t,[""].concat(o.splice(0,o.length-1))),o[o.length-1]]);var r=a[0],s=r.length%3,c=s>0?r.substring(0,s):t.Empty,l=r.substring(s).match(/.{3}/g);return(c=c+"."+t.Join(".",l))+(a.length>1?","+a[1]:"")}return"number"!=typeof i&&isNaN(i)||isNaN(+e)||t.IsNullOrWhiteSpace(i)?i:t.formatNumber(i,e)},t.getDisplayDateFromString=function(t){var e;if((e=t.split("-")).length<=1)return t;var i=e[e.length-1],n=e[e.length-2],o=e[e.length-3];return(i=(i=i.split("T")[0]).split(" ")[0])+"."+n+"."+o},t.getSortableDateFromString=function(e){var i=e.replace(",","").split(".");if(i.length<=1)return e;var n=i[i.length-1].split(" "),o=t.Empty;n.length>1&&(o=n[n.length-1]);var a=i[i.length-1].split(" ")[0]+"-"+i[i.length-2]+"-"+i[i.length-3];return!t.IsNullOrWhiteSpace(o)&&o.length>1?a+="T"+o:a+="T00:00:00",a},t.formatNumber=function(t,e){var i=e.length,n=t.toString();if(i<=n.length)return n;var o=i-n.length;return new Array(o+=1).join("0")+n},t.join=function(e){for(var i=[],n=1;n<arguments.length;n++)i[n-1]=arguments[n];for(var o=t.Empty,a=0;a<i.length;a++)if(!("string"==typeof i[a]&&t.IsNullOrWhiteSpace(i[a])||"number"!=typeof i[a]&&"string"!=typeof i[a])){o+=""+i[a];for(var r=a+1;r<i.length;r++)if(!t.IsNullOrWhiteSpace(i[r])){o+=e,a=r-1;break}}return o},t.regexNumber=/{(\d+(:\w*)?)}/g,t.regexObject=/{(\w+(:\w*)?)}/g,t.Empty="",t}();e.String=n;var o=function(){function t(t){void 0===t&&(t=n.Empty),this.Values=[],this.Values=new Array(t)}return t.prototype.ToString=function(){return this.Values.join("")},t.prototype.Append=function(t){this.Values.push(t)},t.prototype.AppendFormat=function(t){for(var e=[],i=1;i<arguments.length;i++)e[i-1]=arguments[i];this.Values.push(n.Format.apply(n,[t].concat(e)))},t.prototype.Clear=function(){this.Values=[]},t}();e.StringBuilder=o},m2Vd:function(t,e,i){"use strict";var n;i.d(e,"a",(function(){return n})),function(t){t[t.None=0]="None",t[t.JustNow=1]="JustNow",t[t.LessThanOneHour=2]="LessThanOneHour",t[t.Today=3]="Today",t[t.Yesterday=4]="Yesterday",t[t.ThisWeek=5]="ThisWeek",t[t.ThisYear=6]="ThisYear",t[t.FullDate=7]="FullDate",t[t.InMinutes=8]="InMinutes"}(n||(n={}))},vjdx:function(t,e,i){"use strict";i.d(e,"a",(function(){return d})),i.d(e,"b",(function(){return u}));var n=i("S7gc"),o=i("m2Vd"),a=i("Oa3u");class r{constructor(t,e,i){this.timeLocStrings=t,this.locale=e,this.locUtility=i}transform(t,e,i){if(!t)return"";if(!this.locUtility.supportsLocaleSpecifiers)return e;const n=Object(a.c)(t);switch(Object(a.b)(t)){case o.a.None:return"";case o.a.JustNow:return this.timeLocStrings.JustNow;case o.a.LessThanOneHour:return this.timespanString(n,n<120?this.timeLocStrings.NumberMinuteAgo:this.timeLocStrings.NumberMinutesAgo,60);case o.a.Today:return this.timespanString(n,n<7200?this.timeLocStrings.NumberHourAgo:this.timeLocStrings.NumberHoursAgo,3600);case o.a.Yesterday:if(0===i){const e=this.timeLocStrings.TimeYesterday;return this.locUtility.format(e,this.locUtility.formatTimeFromDate(t,this.locale))}return n<86400?this.timespanString(n,n<7200?this.timeLocStrings.NumberHourAgo:this.timeLocStrings.NumberHoursAgo,3600):this.timespanString(n,n<172800?this.timeLocStrings.NumberDayAgo:this.timeLocStrings.NumberDaysAgo,86400);case o.a.ThisWeek:return 0===i?this.locUtility.format(this.timeLocStrings.TimeDayOfWeek,this.locUtility.localizedWeekday(t,this.locale),this.locUtility.formatTimeFromDate(t,this.locale)):this.timespanString(n,n<172800?this.timeLocStrings.NumberDayAgo:this.timeLocStrings.NumberDaysAgo,86400);case o.a.ThisYear:return this.locUtility.localizedMonthDate(t,this.locale);default:return this.locUtility.localizedDateStringMedium(t,this.locale)}}timespanString(t,e,i){const n=Math.floor(t/i);return this.locUtility.format(e,this.locUtility.localizedNumberString(n,this.locale))}}const s={JustNow:"Just Now",NumberMinuteAgo:"{0} minute ago",NumberMinutesAgo:"{0} minutes ago",NumberHourAgo:"{0} hour ago",NumberHoursAgo:"{0} hours ago",NumberDayAgo:"{0} day ago",NumberDaysAgo:"{0} days ago",NumberWeekAgo:"{0} week",NumberWeeksAgo:"{0} weeks",NumberMonthAgo:"{0} month",NumberMonthsAgo:"{0} months",NumberYearAgo:"{0} year",NumberYearsAgo:"{0} years",TimeYesterday:"Yesterday at {0}",TimeDayOfWeek:"{0} at {1}"},c={Minute:{one:"{0} دقيقة",two:"دقيقتان",threeToTen:"{0} دقائق",elevenPlus:"{0} دقيقة"},Hour:{one:"{0} ساعة",two:"ساعتان",threeToTen:"{0} ساعات",elevenPlus:"{0} ساعة"},Day:{one:"{0} يوم",two:"يومان",threeToTen:"{0} أيام",elevenPlus:"{0} يوما"},Week:{one:"{0} أسبوع",two:"{0} أسبوع",threeToTen:"{0} أسابيع",elevenPlus:"{0} أسبوعا"},Month:{one:"{0} شهر",two:"{0} شهر",threeToTen:"{0} أشهر",elevenPlus:"{0} شهرا"},Year:{one:"{0} عام",two:"{0} عام",threeToTen:"{0} أعوام",elevenPlus:"{0} عاما"}},l={Week:{one:"{0} שבוע",two:"{0} שבועיים",three:"{0} שבועות"},Month:{one:"{0} חודש",two:"{0} חודשיים",three:"{0} חודשים"},Year:{one:"{0} שנה",two:"{0} שנתיים",three:"{0} שנים"}};function d(t,e,i,o,a,d){const u=e&&e.toLowerCase();if(!(t instanceof Date)||isNaN(t.valueOf()))return"";if(d&&i)return function(t,e,i,n){if(!(t instanceof Date)||isNaN(t.valueOf()))return"";const o=C.MsPerMinute,a=C.MsPerHour,r=C.MsPerDay,s=C.MsPerWeek,d=C.MsPerMonth,u=C.MsPerYear,h=e.getTime()-t.getTime();if(h<o)return i.JustNow||"";let g=u,f="Year";h<a?(g=o,f="Minute"):h<r?(g=a,f="Hour"):h<s?(g=r,f="Day"):h<d?(g=s,f="Week"):h<u&&(g=d,f="Month");const p=/^[Aa][Rr]-/.test(n),m=/^[Hh][Ee]-/.test(n),H=Math.floor(h/g);let b=null;b=p?function(t,e){if(t<2)return c[e].one;if(t<3)return c[e].two;if(t<11)return c[e].threeToTen;return c[e].elevenPlus}(H,f):m?function(t,e,i){if("Minute"==i||"Hour"==i||"Day"==i)return t[`Number${i}${e>1?"s":""}Ago`];if(e<2)return l[i].one;if(e<3)return l[i].two;return l[i].three}(i,H,f):i[`Number${f}${H>1?"s":""}Ago`];return b?b.replace("{0}",H):""}(t,new Date,i,u);if(!i&&"zh-cn"===u)return"";i||(i=s);const h=(a=a||new n.a).localizedDateString(t,u);o||(o=0);return new r(i,u,a).transform(t,h,o)}function u(t){return t.toLocaleString("ja-JP",{hour12:!1,hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit",timeZone:"Asia/Tokyo"}).replace("午後","").replace("午前","")}const C={MsPerMinute:6e4,MsPerHour:36e5,MsPerDay:864e5,MsPerWeek:6048e5,MsPerMonth:2592e6,MsPerYear:31104e6}}}]);
