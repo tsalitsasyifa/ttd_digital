@@ -15,7 +15,8 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        //
+        $division = Division::all();
+        return view('division.index',["divisions"=> $division]);
     }
 
     /**

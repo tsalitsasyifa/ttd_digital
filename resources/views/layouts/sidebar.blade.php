@@ -36,25 +36,25 @@
                 </li>
                 <li>
                     <a href="#">
-                        <i class="icon nalika-forms icon-wrap"></i>
+                        <i class="icon nalika-thumb-up icon-wrap"></i>
                         <span class="mini-click-non">Persetujuan Dokumen</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="icon nalika-forms icon-wrap"></i>
+                        <i class="icon nalika-folder icon-wrap"></i>
                         <span class="mini-click-non">Pelacakan Dokumen</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="icon nalika-forms icon-wrap"></i>
+                        <i class="icon nalika-user icon-wrap"></i>
                         <span class="mini-click-non">Pengaturan Pengguna</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="icon nalika-forms icon-wrap"></i>
+                    <a href="division">
+                        <i class="icon nalika-pie-chart icon-wrap"></i>
                         <span class="mini-click-non">Pengaturan Divisi</span>
                     </a>
                 </li>
