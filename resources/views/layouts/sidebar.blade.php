@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="user">
                         <i class="icon nalika-user icon-wrap"></i>
                         <span class="mini-click-non">Pengaturan Pengguna</span>
                     </a>
