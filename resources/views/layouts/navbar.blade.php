@@ -26,12 +26,12 @@
                                             </span>
                                             <i class="icon nalika-down-arrow nalika-angle-dw nalika-icon"></i>
                                         </a>
-                                        {{-- <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                            <li>
+                                        <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                            {{-- <li>
                                                 <a class="dropdown-item" href="{{ route('ubah_password', ['id'=>Auth::user()->id]) }}">
                                                     <span class="icon nalika-gear author-log-ic"></span> Ubah Password
                                                 </a>
-                                            </li>
+                                            </li> --}}
                                             <li>
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
@@ -42,7 +42,7 @@
                                                     @csrf
                                                 </form>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </li>
                                 </ul>
                             </div>

@@ -12,7 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $primaryKey   = 'id_user';
+    protected $primaryKey   = 'user_id';
+    protected $username     = 'username';
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'username',
-        'role',
+        'division_id',
     ];
 
     /**
@@ -35,4 +36,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function division()
+    {
+        return $this->belongsTo('App\Models\Division', 'division_id');
+    }
 }

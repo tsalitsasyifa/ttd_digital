@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Login || Sistem Ekspedisi Digital BPKD Kota Pematangsiantar
+    Login || Sistem Pelacakan Dokumen dengan Tanda Tangan Digital
 @endsection
 
 @section('content')
@@ -12,9 +12,9 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="email" class="control-label">{{ __('E-Mail :') }}</label>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    @error('email')
+                    <label for="username" class="control-label">{{ __('Username :') }}</label>
+                    <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                    @error('username')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

@@ -92,7 +92,7 @@
 
     <!-- jquery
 		============================================ -->
-    <script src="{{ url('antarmuka/js/vendor/jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ url('antarmuka/js/vendor/jquery-1.12.4.min.js') }}"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="{{ url('antarmuka/js/bootstrap.min.js') }}"></script>
