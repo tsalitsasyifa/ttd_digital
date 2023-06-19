@@ -29,9 +29,9 @@
                     </li> --}}
                 {{-- @endif --}}
                 <li>
-                    <a href="#">
-                        <i class="icon nalika-forms icon-wrap"></i>
-                        <span class="mini-click-non">Input Dokumen</span>
+                    <a href="document">
+                        <i class="icon nalika-new-file icon-wrap"></i>
+                        <span class="mini-click-non">Tambah Dokumen</span>
                     </a>
                 </li>
                 <li>
