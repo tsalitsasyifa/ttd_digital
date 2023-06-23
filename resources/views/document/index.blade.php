@@ -35,7 +35,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="all-form-element-inner">
-                                                <form method="POST" action="#" enctype="multipart/form-data">
+                                                <form method="POST" action="{{ route('document.store') }}" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group-inner">
                                                         <div class="row">
@@ -107,7 +107,7 @@
                                                                             </label>
                                                                         <div class="file-button">
                                                                             Browse
-                                                                            <input type="file" accept=".pdf" onchange="document.getElementById('prepend-big-btn').value = this.value;">
+                                                                            <input type="file" name="file" accept=".pdf" onchange="document.getElementById('prepend-big-btn').value = this.value;">
                                                                         </div>
                                                                         <input type="text" id="prepend-big-btn" placeholder="no file selected">
                                                                     </div>
@@ -123,7 +123,6 @@
                                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                                             <button class="btn btn-success btn-block ">Tambah</button>
                                                         </div>
-                                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>
                                                     </div>
                                                 </form>
                                             </div>

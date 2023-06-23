@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('approvals', function (Blueprint $table) {
             $table->id('approval_id');
             $table->unsignedBigInteger('document_id');
-            $table->foreign('document_id')->references('user_id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('document_id')->references('document_id')->on('documents')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('approved_by');
             $table->foreign('approved_by')->references('user_id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('approval_date')->useCurrent();
+            $table->timestamps();
         });
     }
 

@@ -25,5 +25,37 @@ class UsersTableSeeder extends Seeder
             'division_id' => 1,
             'role' => "Administrator",
         ]);
+        DB::table('users')->insert([
+            'username' => 'adminpemasaran',
+            'name' => 'Admin Pemasaran',
+            'email' => 'admin@pemasaran.com',
+            'password' => Hash::make('adminpemasaran123'),
+            'division_id' => 5,
+            'role' => "Admin",
+        ]);
+        DB::table('users')->insert([
+            'username' => 'vppemasaran',
+            'name' => 'VP Pemasaran',
+            'email' => 'vp@pemasaran.com',
+            'password' => Hash::make('vppemasaran123'),
+            'division_id' => 5,
+            'role' => "VP",
+        ]);
+        DB::table('users')->insert([
+            'username' => 'adminti',
+            'name' => 'Admin TI',
+            'email' => 'admin@ti.com',
+            'password' => Hash::make('adminti123'),
+            'division_id' => 4,
+            'role' => "Admin",
+        ]);
+        DB::table('users')->insert([
+            'username' => 'vppemasran',
+            'name' => 'VP TI',
+            'email' => 'vp@ti.com',
+            'password' => Hash::make('vpti123'),
+            'division_id' => 4,
+            'role' => "VP",
+        ]);
     }
 }
