@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use App\Models\Document;
+use App\Models\User;
+
 
 class DocumentController extends Controller
 {
@@ -15,7 +17,8 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        return view('document.index');
+        $user = User::where('role', 'VP')->get();
+        return view('document.index',["users"=> $user]);
     }
 
     /**

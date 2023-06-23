@@ -24,7 +24,7 @@
                     <div class="sparkline8-list">
                         <div class="sparkline8-hd">
                             <div class="main-sparkline8-hd">
-                                <h1 style="color: white; text-align: center;">Tambahkan Divisi Baru</h1>
+                                <h1 style="color: white; text-align: center;">Ubah Data Divisi</h1>
                                 <hr style="width: 25%; margin: auto;">
                                 <br><br>
                             </div>

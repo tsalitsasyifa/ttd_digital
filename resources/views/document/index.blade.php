@@ -80,11 +80,9 @@
                                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                                                 <select name="user_id" class="form-control @error('user_id') is-invalid @enderror" value="{{ old('user_id') }}" required autocomplete="user_id" autofocus>
                                                                     <option value="" selected disabled hidden>Pilih Pengguna untuk Persetujuan</option>
-                                                                    <option value="Surat Masuk">Administrator</option>
-                                                                    <option value="Surat Keluar">Admin Produksi</option>
-                                                                    <option value="Surat Keluar">Admin K3</option>
-                                                                    <option value="Surat Keluar">Admin TI</option>
-                                                                    <option value="Surat Keluar">Admin Pemasaran</option>
+                                                                    @foreach ($users as $u)
+                                                                    <option value="{{ $u->user_id }}">{{ $u->name }} || {{ $u->role }} {{ $u->division->division_name }}</option>
+                                                                    @endforeach
                                                                 </select>
                                                                 @error('user_id')
                                                                     <span class="invalid-feedback" role="alert">
@@ -119,6 +117,7 @@
                                                         </div>
                                                     </div>
                                                     <input type="hidden" name="status" value="1">
+                                                    <input type="hidden" name="uploaded_by" value="{{ Auth::user()->user_id }}">
                                                     <div class="row">
                                                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>
                                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">

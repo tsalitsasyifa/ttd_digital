@@ -143,7 +143,6 @@
                                                                     @foreach ($divisions as $d)
                                                                     <option value="<?php echo $d->division_id ?>">{{ $d->division_name }}</option>
                                                                     @endforeach
-
                                                                 </select>
                                                                 @error('division_id')
                                                                     <span class="invalid-feedback" role="alert">
