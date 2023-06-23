@@ -29,7 +29,7 @@
                     </li> --}}
                 {{-- @endif --}}
                 <li>
-                    <a href="document">
+                    <a href="{{route('document.index')}}">
                         <i class="icon nalika-new-file icon-wrap"></i>
                         <span class="mini-click-non">Tambah Dokumen</span>
                     </a>
@@ -47,13 +47,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="user">
+                    <a href="{{route('user.index')}}">
                         <i class="icon nalika-user icon-wrap"></i>
                         <span class="mini-click-non">Pengaturan Pengguna</span>
                     </a>
                 </li>
                 <li>
-                    <a href="division">
+                    <a href="{{route('division.index')}}">
                         <i class="icon nalika-pie-chart icon-wrap"></i>
                         <span class="mini-click-non">Pengaturan Divisi</span>
                     </a>

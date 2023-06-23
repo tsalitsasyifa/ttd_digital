@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <div class="breadcomb-wp">
         <div class="breadcomb-icon">
-            <i class="icon nalika-forms icon-wrap"></i>
+            <i class="icon nalika-pie-chart icon-wrap"></i>
         </div>
         <div class="breadcomb-ctn">
             <h2> Data Divisi </h2>
@@ -22,7 +22,9 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="sparkline8-list">
+                        <a href="{{route('division.create')}}" class="btn btn-success">Tambah Divisi</a>
                         <div class="static-table-list text-light">
+                            <br>
                             <table class="table" width="100%" style="text-align: center;">
                                 <thead>
                                     <tr>
@@ -38,8 +40,8 @@
                                         <td scope="row">{{$d -> division_name}}</td>
                                         <td scope="row">
                                             <div class="btn-group" role="group">
-                                                <a data-toggle="tooltip" data-placement="bottom" title="Edit Data" href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a  data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="#" onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                <a data-toggle="tooltip" data-placement="bottom" title="Edit Data" href="{{route('division.edit',['division' => $d->division_id])}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                <a  data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="{!! url('division/destroy') !!}/{{$d->division_id}}" onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

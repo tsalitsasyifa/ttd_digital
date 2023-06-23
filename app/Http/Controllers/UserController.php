@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Division;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -25,7 +27,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $division = Division::all();
+        return view('user.create',["divisions"=> $division]);
     }
 
     /**
@@ -36,7 +39,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'division_id' => $request->division_id,
+            'role' => $request->role,
+        ]);
+        return redirect('user');
     }
 
     /**
@@ -56,9 +67,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($user_id)
     {
-        //
+        $division = Division::all();
+        $user = User::find($user_id);
+        return view('user.update', ["users" => $user, "divisions"=> $division]);
     }
 
     /**
@@ -68,9 +81,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user_id)
     {
-        //
+        $user = User::find($user_id);
+        $user->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'division_id' => $request->division_id,
+            'role' => $request->role,
+        ]);
+        return redirect('user');
     }
 
     /**
@@ -79,8 +101,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
-        //
+        User::destroy($user_id);
+        return redirect('user');
     }
 }

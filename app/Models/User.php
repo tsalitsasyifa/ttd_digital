@@ -26,6 +26,7 @@ class User extends Authenticatable
         'password',
         'username',
         'division_id',
+        'role'
     ];
 
     /**
@@ -40,5 +41,20 @@ class User extends Authenticatable
     public function division()
     {
         return $this->belongsTo('App\Models\Division', 'division_id');
+    }
+
+    public function document()
+    {
+        return $this->hasMany('App\Models\Document');
+    }
+
+    public function approval()
+    {
+        return $this->hasMany('App\Models\Approval');
+    }
+
+    public function user_approval()
+    {
+        return $this->hasMany('App\Models\UserApproval');
     }
 }

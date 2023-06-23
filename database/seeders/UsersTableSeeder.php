@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('admin123'),
             'division_id' => 1,
+            'role' => "Administrator",
         ]);
     }
 }

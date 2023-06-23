@@ -17,4 +17,14 @@ class Document extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
+
+    public function approval()
+    {
+        return $this->hasMany('App\Models\Approval');
+    }
+
+    public function user_approval()
+    {
+        return $this->hasMany('App\Models\UserApproval');
+    }
 }

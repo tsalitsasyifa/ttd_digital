@@ -23,6 +23,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('/division',DivisionController::class);
-Route::resource('/user',UserController::class);
-Route::resource('/document',DocumentController::class);
+Route::resource('/division',DivisionController::class)->middleware('auth');
+Route::get('/division/destroy/{division_id}','App\Http\Controllers\DivisionController@destroy');
+
+Route::resource('/user',UserController::class)->middleware('auth');
+Route::get('/user/destroy/{user_id}','App\Http\Controllers\UserController@destroy');
+
+Route::resource('/document',DocumentController::class)->middleware('auth');
