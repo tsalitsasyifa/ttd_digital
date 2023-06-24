@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('approval.index')}}">
                         <i class="icon nalika-thumb-up icon-wrap"></i>
                         <span class="mini-click-non">Persetujuan Dokumen</span>
                     </a>
