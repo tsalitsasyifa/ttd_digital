@@ -55,13 +55,7 @@
                                         <td scope="row">
                                             <div class="btn-group" role="group">
                                                 <a data-toggle="tooltip" data-placement="bottom" title="Unduh Dokumen" href="{!! url('/approval/download') !!}/{{$d->document_id}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i></a>
-                                                @php
-                                                    if($d -> status == 1){
-                                                @endphp
                                                 <a  data-toggle="tooltip" data-placement="bottom" title="Persetujuan Dokumen" href="{!! url('/approval/approve') !!}/{{$d->document_id}}" class="btn btn-success btn-sm"><i class="fa fa-thumbs-up"></i></a>
-                                                @php
-                                                    }
-                                                @endphp
                                             </div>
                                         </td>
                                     </tr>

@@ -37,7 +37,7 @@
                 </li>
                 @endif
                 <li>
-                    <a href="#">
+                    <a href="{{route('tracking.index')}}">
                         <i class="icon nalika-folder icon-wrap"></i>
                         <span class="mini-click-non">Pelacakan Dokumen</span>
                     </a>

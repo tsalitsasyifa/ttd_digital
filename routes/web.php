@@ -5,6 +5,7 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ApprovalController;
+use App\Http\Controllers\DocumentTrackingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,4 +37,7 @@ Route::resource('/approval',ApprovalController::class)->middleware('auth');
 Route::get('/approval/approve/{document_id}','App\Http\Controllers\ApprovalController@approve')->middleware('auth');
 Route::get('/approval/download/{document_id}', 'App\Http\Controllers\ApprovalController@downloadFile')->middleware('auth');
 Route::post('/approval/newApproval', 'App\Http\Controllers\ApprovalController@newApproval')->middleware('auth')->name('approval.newApproval');
+
+Route::get('/tracking','App\Http\Controllers\DocumentTrackingController@index')->name('tracking.index')->middleware('auth');
+Route::get('/tracking/detail/{document_id}','App\Http\Controllers\DocumentTrackingController@detail')->name('tracking.detail')->middleware('auth');
 
