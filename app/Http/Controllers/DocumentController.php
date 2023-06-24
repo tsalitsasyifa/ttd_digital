@@ -59,9 +59,10 @@ class DocumentController extends Controller
         $user_approval = new UserApproval();
         $user_approval->document_id = $document->document_id;
         $user_approval->user_id = $request->user_id;
+        // dd($user_approval);
         $user_approval->save();
 
-        return redirect()->route('document.index')->with('success', 'Dokumen berhasil ditambahkan');
+        return redirect()->route('tracking.index');
     }
 
     /**
