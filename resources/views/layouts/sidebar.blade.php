@@ -20,32 +20,29 @@
                         <span class="mini-click-non">Home</span>
                     </a>
                 </li>
-                {{-- @if ( Auth::user()->level == "5" or Auth::user()->level == "1" ) --}}
-                    {{-- <li>
-                        <a href="#">
-                            <i class="icon nalika-paper-plane icon-wrap"></i>
-                            <span class="mini-click-non">Distribusi</span>
-                        </a>
-                    </li> --}}
-                {{-- @endif --}}
+                @if ( Auth::user()->role == "Admin" or Auth::user()->role == "Administrator")
                 <li>
                     <a href="{{route('document.index')}}">
                         <i class="icon nalika-new-file icon-wrap"></i>
                         <span class="mini-click-non">Tambah Dokumen</span>
                     </a>
                 </li>
+                @endif
+                @if ( Auth::user()->role == "VP" or Auth::user()->role == "Administrator")
                 <li>
                     <a href="{{route('approval.index')}}">
                         <i class="icon nalika-thumb-up icon-wrap"></i>
                         <span class="mini-click-non">Persetujuan Dokumen</span>
                     </a>
                 </li>
+                @endif
                 <li>
                     <a href="#">
                         <i class="icon nalika-folder icon-wrap"></i>
                         <span class="mini-click-non">Pelacakan Dokumen</span>
                     </a>
                 </li>
+                @if ( Auth::user()->role == "Administrator")
                 <li>
                     <a href="{{route('user.index')}}">
                         <i class="icon nalika-user icon-wrap"></i>
@@ -58,6 +55,7 @@
                         <span class="mini-click-non">Pengaturan Divisi</span>
                     </a>
                 </li>
+                @endif
             </ul>
         </nav>
     </div>
