@@ -21,6 +21,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col justify-content-center ">
+                            <div class="card ">
+                                <div class="text-white" style=" background-color: #b3d4fc;">
+                                    {!! $dashboardChart->container() !!}
+                                </div>
+                            </div>
+                        </div>
 
                             <div class="widget-head-info-box" style="height: 100%;">
                                 <div class="persoanl-widget-hd">
@@ -33,4 +40,7 @@
             </div>
         </div>
 
+    <script src="{{ $dashboardChart->cdn() }}"></script>
+
+    {{ $dashboardChart->script() }}
 @endsection

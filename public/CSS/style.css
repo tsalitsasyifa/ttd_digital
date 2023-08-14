@@ -1,0 +1,52 @@
+.container {
+    text-align: center;
+    padding: 20px;
+    max-width: 600px; /* Batas lebar maksimum container */
+    margin: 0 auto; /* Pusatkan container secara horizontal */
+}
+.modal-content {
+    background-color: navy;
+}
+
+/* Ganti warna latar belakang modal header menjadi biru tua (navy) */
+.modal-header {
+    background-color: navy;
+}
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#clearButton {
+    background-color: #C70039;
+    color: white;
+    border-radius: 5px;
+    padding-top: 5px;
+    margin-bottom: 7px;
+    width: auto;
+}
+#clearButton:hover {
+    background-color: #D71313;
+}
+#submitButton {
+    background-color: #1A5D1A;
+    color: white;
+    border-radius: 5px;
+    padding-top: 5px;
+    margin-bottom: 7px;
+    width: auto;
+}
+
+#submitButton:hover {
+    background-color: #7A9D54;
+}
+button:hover {
+    background-color: #fff;
+}
+#h1 {
+    color: #fff;
+    margin-right: 50px;
+}

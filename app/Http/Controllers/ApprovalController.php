@@ -2,26 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreApprovalRequest;
-use App\Http\Requests\UpdateApprovalRequest;
-use App\Models\Approval;
-use App\Models\UserApproval;
-use App\Models\Document;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+// use TCPDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Illuminate\Http\Response;
-use Dompdf\Dompdf;
+use Endroid\QrCode\QrCode;
+use App\Models\Document;
+use App\Models\Approval;
+use App\Models\UserApproval;
 use App\Models\User;
-use Illuminate\Http\Request;
+use TCPDF\TCPDF;
+use setasign\Fpdi\Fpdi;
+use setasign\Fpdf\Fpdf;
+use App\Models\Signature;
+
 
 class ApprovalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function newApproval(Request $request){
+        $document = Document::findOrFail($request->document_id);
+        $document->status = 1;
+        $document->save();
+
+        $user_approval = new UserApproval();
+        $user_approval->document_id = $request->document_id;
+        $user_approval->user_id = $request->user_id;
+        $user_approval->save();
+
+        return redirect()->back();
+    }
+
     public function index()
     {
         $user_approvals = UserApproval::where('user_id', Auth::user()->user_id)->get();
@@ -37,113 +48,110 @@ class ApprovalController extends Controller
         return view('approval.index', compact('documents'));
     }
 
-    public function approve($document_id)
+    public function approve(Request $request,$document_id)
     {
         // Mendapatkan file_path document dari database berdasarkan document_id
         $document = Document::findOrFail($document_id);
         $file_path = $document->file_path;
 
-        // Mendapatkan data pengguna yang login
         $user = Auth::user();
 
-        // Generate QR code based on the user's name
-        $qrCodeContent = $user->name;
-        $qrCode = QrCode::size(200)->generate($qrCodeContent);
+   
+        // Generate QR code 
+        //$qrCodeContent = $user->name;
+        //$qrCodeContent = "http://127.0.0.1:8000/tracking/detail/". $document_id;
+        //$qrCodeContent = "http://127.0.0.1:8000/tracking/detail/". $document_id. $user->name;
+        $qrCodeContent = "http://127.0.0.1:8000/linkqr". "/". $document_id;
+        
 
-        // Simpan QR code sebagai gambar sementara
+        // inisialisasi
+        $qrCode = new QrCode($qrCodeContent);
+        $qrCode->setSize(200); 
+
         $qrCodePath = storage_path('app/temp/' . time() . '.png');
-        file_put_contents($qrCodePath, $qrCode);
+        $qrCode->writeFile($qrCodePath);
 
-        // Load dokumen PDF yang sudah ada
-        $existingPDF = file_get_contents(storage_path('app/public/' . $file_path));
+        // Load the existing PDF document using FPDI
+        $existingPDFPath = storage_path('app/public/' . $file_path);
 
-        // Inisialisasi objek Dompdf
-        $dompdf = new Dompdf();
+        // Initialize FPDI object
+        $pdf = new Fpdi();
 
-        // Load HTML ke Dompdf dengan encoding yang ditentukan
-        $dompdf->loadHtml($existingPDF, 'UTF-8'); // Ganti 'UTF-8' dengan encoding yang sesuai
+        // Set the source file for the PDF
+        $pdf->setSourceFile($existingPDFPath);
 
-        // Render HTML menjadi PDF
-        $dompdf->render();
+        // Import all pages from the source file
+        $pageCount = $pdf->setSourceFile($existingPDFPath);
 
-        // Dapatkan objek canvas
-        $canvas = $dompdf->getCanvas();
+        // Loop through each page in the source file
+        for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
+            // Add a new page to the PDF
+            $pdf->AddPage();
 
-        // Dapatkan lebar dan tinggi halaman PDF
-        $pageWidth = $canvas->get_width();
-        $pageHeight = $canvas->get_height();
+            // Import the page from the source file
+            $importedPage = $pdf->importPage($pageNumber);
 
-        // Tentukan posisi dan ukuran gambar QR Code
-        $qrCodeWidth = 100;
-        $qrCodeHeight = 100;
-        $qrCodeX = $pageWidth - $qrCodeWidth - 10; // 10 adalah margin kanan
-        $qrCodeY = $pageHeight - $qrCodeHeight - 10; // 10 adalah margin bawah
+            // Use the imported page as a template
+            $pdf->useTemplate($importedPage);
+        }
 
-        // Tambahkan gambar QR Code ke halaman PDF
-        $canvas->image($qrCodePath, $qrCodeX, $qrCodeY, $qrCodeWidth, $qrCodeHeight);
+        $x = 150;
+        $y = 230;
+        $width = 30;
+        $height = 30;
 
-        // Render ulang PDF setelah menambahkan gambar QR Code
-        $dompdf->render();
+        // Add the QR code image to the new page
+        $pdf->Image($qrCodePath, $x, $y, $width, $height);
 
-        // Simpan dokumen PDF yang sudah dimodifikasi dengan QR code
-        $modifiedPDF = $dompdf->output();
+        // Output the modified PDF
         $modifiedPDFFilePath = 'modified_pdfs/' . time() . '.pdf';
-        Storage::put('public/'.$modifiedPDFFilePath, $modifiedPDF);
+        $pdf->Output(storage_path('app/public/' . $modifiedPDFFilePath), 'F');
 
-        // Hapus gambar QR code sementara
+        // Remove the temporary QR code image file
         unlink($qrCodePath);
 
-        // Update file_path pada document dengan modifiedPDFFilePath
+        // Update the file_path of the document with modifiedPDFFilePath
         $document->file_path = $modifiedPDFFilePath;
         $document->status = 2;
         $document->save();
 
         $users = User::where('role', 'VP')->get();
-
+        $signatureData = $request->input('signature_data');
+        $signatureFile = $this->saveSignatureFile($signatureData);
         Approval::create([
             'document_id'   => $document_id,
             'approved_by'   => Auth::user()->user_id,
-            'approval_date' => now()
+            'approval_date' => now(),
+            'status_ap'        => 2,
+            'signature' => $signatureFile
         ]);
 
         $user_approval = UserApproval::where('document_id', $document_id)->where('user_id', Auth::user()->user_id)->first();
         UserApproval::destroy($user_approval->user_approval_id);
 
-        return redirect()->back()->with('users', $users)->with('document_id', $document->document_id)->with('additional_approval', true);
+        return redirect()->back()->with('users', $users)->with('document_id', $document->document_id)->with('teruskan', true);
     }
 
-    // public function approve($document_id)
-    // {
-    //     $document = Document::findOrFail($document_id);
-    //     $document->status = 2;
-    //     $document->save();
 
-    //     $users = User::where('role', 'VP')->get();
+private function saveSignatureFile($data)
+{
+    $baseFilename = time(); // Menggunakan timestamp sebagai dasar nama file
+    $extension = 'png'; // Ekstensi file
 
-    //     Approval::create([
-    //         'document_id'   => $document_id,
-    //         'approved_by'   => Auth::user()->user_id,
-    //         'approval_date' => now()
-    //     ]);
+    $filename = $baseFilename . '.' . $extension;
+    $counter = 1;
 
-    //     $user_approval = UserApproval::where('document_id', $document_id)->where('user_id', Auth::user()->user_id)->first();
-    //     UserApproval::destroy($user_approval->user_approval_id);
-
-    //     return redirect()->back()->with('users', $users)->with('document_id', $document->document_id)->with('additional_approval', true);
-    // }
-
-    public function newApproval(Request $request){
-        $document = Document::findOrFail($request->document_id);
-        $document->status = 1;
-        $document->save();
-
-        $user_approval = new UserApproval();
-        $user_approval->document_id = $request->document_id;
-        $user_approval->user_id = $request->user_id;
-        $user_approval->save();
-
-        return redirect()->back();
+    // Memeriksa apakah filename sudah ada dalam direktori
+    while (file_exists(public_path('signatures/' . $filename))) {
+        $filename = $baseFilename . '_' . $counter . '.' . $extension;
+        $counter++;
     }
+
+    $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $data));
+    file_put_contents(public_path('signatures/' . $filename), $imageData);
+
+    return $filename;
+}
 
     public function downloadFile($document_id)
     {
@@ -168,69 +176,57 @@ class ApprovalController extends Controller
         return $response;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function linkqr($document_id)
     {
-        //
+        $linkdoc = Document::with('user')->findOrFail($document_id);
+        $linkapp = Approval::with('user')->where('document_id', $document_id)->get();
+        return view('approval.linkqr',["linkdoc"=> $linkdoc, "linkapp"=>$linkapp, "document_id" => $document_id]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreApprovalRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreApprovalRequest $request)
+    public function tolak($document_id)
+{
+    $document = Document::findOrFail($document_id);
+
+    $document->status = 4;
+    $document->save();
+
+    Approval::create([
+        'document_id'   => $document_id,
+        'approved_by'   => Auth::user()->user_id,
+        'approval_date' => now(),
+        'status_ap'     => 4,
+    ]);
+
+    UserApproval::where('document_id', $document_id)->delete();
+
+    return redirect()->route('approval.index');
+}
+
+    public function revisi(Request $request, $document_id)
     {
-        //
+        $document = Document::findOrFail($document_id);
+        $user = Auth::user();
+
+        // Validasi input jika diperlukan
+        $validatedData = $request->validate([
+            'revisi_note' => 'required|string',
+        ]);
+
+        Approval::create([
+            'document_id'   => $document_id,
+            'approved_by'   => Auth::user()->user_id,
+            'approval_date' => now(),
+            'revisi_note'   => $request->revisi_note,
+            'status_ap'     => 3,
+        ]);
+
+        // Atur status revisi pada dokumen
+        $document->status = 3; // Atur status revisi pada dokumen juga
+        $document->save();
+
+        UserApproval::where('document_id', $document_id)->delete();
+
+        return redirect()->back()->with('success', 'Catatan Dokumen Revisi Tersimpan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Approval  $approval
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Approval $approval)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Approval  $approval
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Approval $approval)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateApprovalRequest  $request
-     * @param  \App\Models\Approval  $approval
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateApprovalRequest $request, Approval $approval)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Approval  $approval
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Approval $approval)
-    {
-        //
-    }
 }

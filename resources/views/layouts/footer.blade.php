@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer-copy-right">
-                    <p>Copyright © 2023 All rights reserved.</p>
+                    &copy; <?php echo date("Y"); echo "<font color='white'>&copy; 2023 SiTrack - Signature Tracking</font>"; ?>.
+                    <p>SiTrack - Signature Tracking</p>
                 </div>
             </div>
         </div>

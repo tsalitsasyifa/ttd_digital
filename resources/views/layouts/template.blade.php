@@ -6,13 +6,14 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>@yield('title')</title>
 	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<!-- forms CSS
 		============================================ -->
 	<link rel="stylesheet" href="{{ url('antarmuka/css/form/all-type-forms.css') }}">
 	<!-- favicon
 		============================================ -->
-	<link rel="shortcut icon" type="image/x-icon" href="{{ url('antarmuka/img/favicon.ico') }}">
+	<link rel="shortcut icon" type="image/x-icon" href="{{ url('antarmuka/img/logo/sitrack.png') }}">
 	<!-- Google Fonts
 		============================================ -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
@@ -95,9 +96,10 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="breadcome-list">
                                     <div class="row">
-                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             @yield('breadcrumb')
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

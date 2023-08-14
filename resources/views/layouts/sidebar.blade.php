@@ -56,6 +56,14 @@
                     </a>
                 </li>
                 @endif
+                @if ( Auth::user()->role == "Admin" or Auth::user()->role == "Administrator")
+                <li>
+                    <a href="{{route('tracking.tertunda')}}">
+                        <i class="icon nalika-forms icon-wrap"></i>
+                        <span class="mini-click-non">Dokumen Tertunda</span>
+                    </a>
+                </li>
+                @endif
             </ul>
         </nav>
     </div>

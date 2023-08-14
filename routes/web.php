@@ -34,10 +34,18 @@ Route::get('/user/destroy/{user_id}','App\Http\Controllers\UserController@destro
 Route::resource('/document',DocumentController::class)->middleware('auth');
 
 Route::resource('/approval',ApprovalController::class)->middleware('auth');
-Route::get('/approval/approve/{document_id}','App\Http\Controllers\ApprovalController@approve')->middleware('auth');
+Route::post('/approval/approve/{document_id}','App\Http\Controllers\ApprovalController@approve')->middleware('auth');
 Route::get('/approval/download/{document_id}', 'App\Http\Controllers\ApprovalController@downloadFile')->middleware('auth');
 Route::post('/approval/newApproval', 'App\Http\Controllers\ApprovalController@newApproval')->middleware('auth')->name('approval.newApproval');
+Route::get('/linkqr/{document_id}', 'App\Http\Controllers\ApprovalController@linkqr')->name('detailqr');
+Route::get('/approval/tolak/{document_id}','App\Http\Controllers\ApprovalController@tolak')->middleware('auth');
+Route::post('/approval/revisi/{document_id}','App\Http\Controllers\ApprovalController@revisi')->middleware('auth');
 
 Route::get('/tracking','App\Http\Controllers\DocumentTrackingController@index')->name('tracking.index')->middleware('auth');
 Route::get('/tracking/detail/{document_id}','App\Http\Controllers\DocumentTrackingController@detail')->name('tracking.detail')->middleware('auth');
+Route::get('/tracking/tertunda','App\Http\Controllers\DocumentTrackingController@tunda')->name('tracking.tertunda')->middleware('auth');
 
+Route::get('/tracking/destroy/{document_id}','App\Http\Controllers\DocumentTrackingController@destroy')->name('tracking.destroy')->middleware('auth');
+
+Route::get('/ttd', [ApprovalController::class, 'ttd']);
+Route::post('/simpan_ttd', [ApprovalController::class, 'simpan_ttd'])->name('simpan_ttd');

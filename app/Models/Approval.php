@@ -11,7 +11,7 @@ class Approval extends Model
 
     protected $table        = 'approvals';
     protected $primaryKey   = 'approval_id';
-    protected $fillable     = ['document_id', 'approved_by', 'approval_date'];
+    protected $fillable     = ['document_id', 'approved_by', 'status_ap','approval_date', 'revisi_note','signature'];
 
     public function document()
     {

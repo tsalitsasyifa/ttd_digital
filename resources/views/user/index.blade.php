@@ -25,38 +25,40 @@
                         <a href="{{route('user.create')}}" class="btn btn-success">Tambah Pengguna</a>
                         <div class="static-table-list text-light">
                             <br>
-                            <table class="table" width="100%" style="text-align: center;">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: center;">No</th>
-                                        <th style="text-align: center;">Nama</th>
-                                        <th style="text-align: center;">Username</th>
-                                        <th style="text-align: center;">E - Mail</th>
-                                        <th style="text-align: center;">Divisi</th>
-                                        <th style="text-align: center;">Jabatan</th>
-                                        <th style="text-align: center;">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($users as $k => $u)
-                                    <tr class="text-center">
-                                        <td scope="row">{{ $k + 1 }}</td>
-                                        <td scope="row">{{$u -> name}}</td>
-                                        <td scope="row">{{$u -> username}}</td>
-                                        <td scope="row">{{$u -> email}}</td>
-                                        <td scope="row">{{$u -> division -> division_name}}</td>
-                                        <td scope="row">{{$u -> role}}</td>
-                                        <td scope="row">
-                                            <div class="btn-group" role="group">
-                                                <a data-toggle="tooltip" data-placement="bottom" title="Edit Data" href="{{route('user.edit',['user' => $u->user_id])}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a  data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="{!! url('user/destroy') !!}/{{$u->user_id}}" onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                            <div class="table-responsive">
+                                <table class="table" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">No</th>
+                                            <th style="text-align: center;">Nama</th>
+                                            <th style="text-align: center;">Username</th>
+                                            <th style="text-align: center;">E - Mail</th>
+                                            <th style="text-align: center;">Divisi</th>
+                                            <th style="text-align: center;">Jabatan</th>
+                                            <th style="text-align: center;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($users as $k => $u)
+                                        <tr class="text-center">
+                                            <td scope="row">{{ $k + 1 }}</td>
+                                            <td scope="row">{{$u -> name}}</td>
+                                            <td scope="row">{{$u -> username}}</td>
+                                            <td scope="row">{{$u -> email}}</td>
+                                            <td scope="row">{{$u -> division -> division_name}}</td>
+                                            <td scope="row">{{$u -> role}}</td>
+                                            <td scope="row">
+                                                <div class="btn-group" role="group">
+                                                    <a data-toggle="tooltip" data-placement="bottom" title="Edit Data" href="{{route('user.edit',['user' => $u->user_id])}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                    <a  data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="{!! url('user/destroy') !!}/{{$u->user_id}}" onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

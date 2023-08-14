@@ -7,6 +7,10 @@
 @section('content')
     <div class="hpanel">
         <div class="panel-body">
+            <div class="text-center mb-3">
+				<img type="image/x-icon" src="{{asset('antarmuka/img/logo/sitrack.png')}}"
+                rel="stylesheet" type="text/css" width="100" height="100">
+			</div>
             <h2 style="text-align: center;">Login</h2>
             <hr>
             <form method="POST" action="{{ route('login') }}">
