@@ -24,21 +24,17 @@ class DocumentController extends Controller
         $fileName = $file->getClientOriginalName();
         $filePath = $file->storeAs('documents', $fileName, 'public');
 
-        // Simpan dokumen ke dalam tabel "Documents"
         $document = new Document();
         $document->title = $request->title;
         $document->description = $request->description;
         $document->file_path = $filePath;
-        $document->status = 1; // Status default
+        $document->status = 1; 
         $document->uploaded_by = $request->uploaded_by;
-        // dd($document);
         $document->save();
 
-        // Simpan data approval ke dalam tabel "Approvals"
         $user_approval = new UserApproval();
         $user_approval->document_id = $document->document_id;
         $user_approval->user_id = $request->user_id;
-        // dd($user_approval);
         $user_approval->save();
 
         return redirect()->route('tracking.index');

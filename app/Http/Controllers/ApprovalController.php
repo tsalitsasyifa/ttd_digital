@@ -50,7 +50,6 @@ class ApprovalController extends Controller
 
     public function approve(Request $request,$document_id)
     {
-        // Mendapatkan file_path document dari database berdasarkan document_id
         $document = Document::findOrFail($document_id);
         $file_path = $document->file_path;
 
@@ -71,27 +70,20 @@ class ApprovalController extends Controller
         $qrCodePath = storage_path('app/temp/' . time() . '.png');
         $qrCode->writeFile($qrCodePath);
 
-        // Load the existing PDF document using FPDI
         $existingPDFPath = storage_path('app/public/' . $file_path);
 
-        // Initialize FPDI object
         $pdf = new Fpdi();
 
-        // Set the source file for the PDF
         $pdf->setSourceFile($existingPDFPath);
 
-        // Import all pages from the source file
         $pageCount = $pdf->setSourceFile($existingPDFPath);
 
-        // Loop through each page in the source file
         for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
-            // Add a new page to the PDF
+            
             $pdf->AddPage();
 
-            // Import the page from the source file
             $importedPage = $pdf->importPage($pageNumber);
 
-            // Use the imported page as a template
             $pdf->useTemplate($importedPage);
         }
 
@@ -100,17 +92,14 @@ class ApprovalController extends Controller
         $width = 30;
         $height = 30;
 
-        // Add the QR code image to the new page
         $pdf->Image($qrCodePath, $x, $y, $width, $height);
 
-        // Output the modified PDF
         $modifiedPDFFilePath = 'modified_pdfs/' . time() . '.pdf';
         $pdf->Output(storage_path('app/public/' . $modifiedPDFFilePath), 'F');
 
         // Remove the temporary QR code image file
         unlink($qrCodePath);
 
-        // Update the file_path of the document with modifiedPDFFilePath
         $document->file_path = $modifiedPDFFilePath;
         $document->status = 2;
         $document->save();
@@ -135,8 +124,8 @@ class ApprovalController extends Controller
 
 private function saveSignatureFile($data)
 {
-    $baseFilename = time(); // Menggunakan timestamp sebagai dasar nama file
-    $extension = 'png'; // Ekstensi file
+    $baseFilename = time(); 
+    $extension = 'png'; 
 
     $filename = $baseFilename . '.' . $extension;
     $counter = 1;
@@ -155,7 +144,6 @@ private function saveSignatureFile($data)
 
     public function downloadFile($document_id)
     {
-        // Mendapatkan file_path document dari database berdasarkan document_id
         $document = Document::findOrFail($document_id);
         $filePath = 'public/'.$document->file_path;
 
@@ -164,7 +152,6 @@ private function saveSignatureFile($data)
             abort(404);
         }
 
-        // Mendapatkan tipe MIME file
         $mimeType = Storage::mimeType($filePath);
 
         // Membuat instance dari Response dengan isi file
@@ -207,7 +194,6 @@ private function saveSignatureFile($data)
         $document = Document::findOrFail($document_id);
         $user = Auth::user();
 
-        // Validasi input jika diperlukan
         $validatedData = $request->validate([
             'revisi_note' => 'required|string',
         ]);
@@ -220,8 +206,7 @@ private function saveSignatureFile($data)
             'status_ap'     => 3,
         ]);
 
-        // Atur status revisi pada dokumen
-        $document->status = 3; // Atur status revisi pada dokumen juga
+        $document->status = 3; 
         $document->save();
 
         UserApproval::where('document_id', $document_id)->delete();

@@ -30,22 +30,6 @@ class DocumentTrackingController extends Controller
         return view('tracking.detail',["document"=> $document, "approvals"=>$approvals]);
     }
 
-    // public function tunda(){
-    //     $documents = Document::query()
-    //                 ->leftJoin('users', 'documents.uploaded_by', '=', 'users.user_id')
-    //                 ->select('documents.*', 'users.name as uploaded_by_name')
-    //                 ->whereIn('documents.status', [3, 4]) // Filter by status 3 (revisi) and 4 (tidak disetujui)
-    //                 ->when(request('search'), function ($query, $search) {
-    //                     return $query->where('documents.title', 'like', '%' . $search . '%')
-    //                         ->orWhere('documents.description', 'like', '%' . $search . '%')
-    //                         ->orWhere('users.name', 'like', '%' . $search . '%');
-    //                 })
-    //                 ->get();
-
-    // return view('tracking.tolak', ["documents" => $documents]);
-
-    // }
-
     public function tunda(Request $request) {
         $search = $request->input('search');
     
